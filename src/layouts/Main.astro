@@ -45,4 +45,16 @@ import SEO from '../components/SEO.astro';
       }
     </style>
   </body>
+  <script>
+    navigator.serviceWorker.getRegistrations().then(workers => {
+      workers.forEach(worker => {
+        if (worker.scope === 'https://flashblaze.xyz/') {
+          worker
+            .unregister()
+            .then(() => console.log(`Unregistered worker: ${worker.scope}`))
+            .catch(err => console.log(err));
+        }
+      });
+    });
+  </script>
 </html>
