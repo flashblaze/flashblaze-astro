@@ -1,4 +1,4 @@
-# flashblaze.xyz
+# [flashblaze.xyz](https://flashblaze.xyz)
 
 Migrated my website to [Astro](https://astro.build)
 
