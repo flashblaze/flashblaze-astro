@@ -1,0 +1,29 @@
+---
+import Post from '../../components/Post.astro';
+import Main from '../../layouts/Main.astro';
+
+const posts = await Astro.glob('../../content/*.mdx');
+const sortedPosts = posts.sort((a, b) => {
+  const d1 = new Date(a.frontmatter.date);
+  const d2 = new Date(b.frontmatter.date);
+
+  return d2.getTime() - d1.getTime();
+});
+---
+
+<Main
+  title='Posts'
+  description='Tech posts written to solve poverty and realize world peace'
+  ogUrl='https://flashblaze.xyz/posts'
+>
+  {
+    sortedPosts.map(post => (
+      <Post
+        date={post.frontmatter.date}
+        href={`/posts/${post.frontmatter.slug}`}
+      >
+        {post.frontmatter.title}
+      </Post>
+    ))
+  }
+</Main>

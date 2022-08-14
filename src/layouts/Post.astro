@@ -1,0 +1,40 @@
+---
+export interface Props {
+  title: string;
+  date: string;
+  description: string;
+  slug: string;
+}
+
+import '@fontsource/montserrat';
+import '@fontsource/montserrat/500.css';
+import '@fontsource/montserrat/600.css';
+import '@fontsource/montserrat/700.css';
+import Main from './Main.astro';
+
+let { title, date, description, slug } = Astro.props;
+
+date = new Date(date);
+const parsedDate = date.toUTCString().slice(0, 16);
+---
+
+<Main
+  {title}
+  {description}
+  ogUrl={`https://flashblaze.xyz/posts/${slug}`}
+  ogImage={`https://flashblaze.xyz/posts/${slug}/og_image`}
+>
+  <h1 class='font-semibold text-2xl'>{title}</h1>
+  <p class='font-medium text-sm dark:text-gray-300 text-gray-600 mt-2 mb-10'>
+    {parsedDate}
+  </p>
+  <article class='prose dark:prose-invert'>
+    <slot />
+  </article>
+</Main>
+
+<style is:inline>
+  pre.shiki .language-id {
+    display: none;
+  }
+</style>

@@ -1,0 +1,64 @@
+---
+export interface Props {
+  docTitle: string;
+  docDescription: string;
+  docOgUrl: string;
+  docOgImage?: string;
+}
+
+const {
+  docTitle,
+  docDescription,
+  docOgUrl,
+  docOgImage = 'https://flashblaze.xyz/og_image.png',
+} = Astro.props as Props;
+---
+
+<head>
+  <script
+    is:inline
+    async
+    src='https://www.googletagmanager.com/gtag/js?id=G-YX39Y3FXY8'
+  ></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-YX39Y3FXY8');
+  </script>
+
+  <title>{docTitle}</title>
+  <meta name='author' content='Neeraj Lagwankar' />
+  <meta name='description' content={docDescription} />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+
+  <meta property='og:url' content={docOgUrl} />
+  <meta property='og:description' content={docDescription} />
+  <meta property='og:title' content={docTitle} />
+  <meta property='og:image' content={docOgImage} />
+
+  <meta name='twitter:url' content={docOgUrl} />
+  <meta name='twitter:image' content={docOgImage} />
+  <meta name='twitter:card' content='summary' />
+  <meta name='twitter:creator' content='@neeraj_artx' />
+  <meta name='twitter:title' content={docTitle} />
+  <meta name='twitter:description' content={docDescription} />
+
+  <script>
+    import Swup from 'swup';
+    import SwupScriptsPlugin from '@swup/scripts-plugin';
+    import SwupHeadPlugin from '@swup/head-plugin';
+    import SwupGtmPlugin from '@swup/gtm-plugin';
+
+    const swup = new Swup({
+      plugins: [
+        new SwupScriptsPlugin(),
+        new SwupHeadPlugin(),
+        new SwupGtmPlugin(),
+      ],
+    });
+  </script>
+</head>

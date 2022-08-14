@@ -1,0 +1,48 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  ogUrl: string;
+  ogImage?: string;
+}
+
+const { title, description, ogUrl, ogImage } = Astro.props as Props;
+import '@fontsource/montserrat';
+import '@fontsource/montserrat/500.css';
+import '@fontsource/montserrat/600.css';
+import '@fontsource/montserrat/700.css';
+import Link from '../components/Link.astro';
+import SEO from '../components/SEO.astro';
+---
+
+<html lang='en'>
+  <SEO
+    docTitle={title}
+    docDescription={description}
+    docOgUrl={ogUrl}
+    docOgImage={ogImage}
+  />
+  <body
+    class='dark:bg-zinc-900 dark:text-white text-black font-sans w-full max-w-3xl mx-auto'
+  >
+    <div id='swup' class='flex flex-col justify-center px-8 transition-fade'>
+      <nav class='flex items-center py-8'>
+        <Link href='/' customClass=''>Home</Link>
+        <Link href='/posts' customClass='ml-5'>Posts</Link>
+      </nav>
+      <main class='flex flex-col justify-center p-0'>
+        <slot />
+      </main>
+    </div>
+    <style>
+      .transition-fade {
+        transition: 0.2s;
+        opacity: 1;
+      }
+
+      html.is-animating .transition-fade {
+        opacity: 0;
+      }
+    </style>
+  </body>
+</html>

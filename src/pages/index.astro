@@ -1,0 +1,70 @@
+---
+import Main from '../layouts/Main.astro';
+import Icon from '../components/Icon';
+import GraphicsCard from '../components/GraphicsCard.astro';
+import Link from '../components/Link.astro';
+---
+
+<Main
+  title='Neeraj Lagwankar'
+  description='Frontend developer and 2D/3D enthusiast'
+  ogUrl='https://flashblaze.xyz'
+>
+  <h1 class='font-bold text-3xl'>Neeraj Lagwankar</h1>
+  <p class='text-gray-700 dark:text-gray-400'>
+    Developer, amateur photographer and <i><del>professional</del></i> wannabe artist
+  </p>
+  <div class='flex my-3'>
+    <Icon name='twitter' />
+    <Icon name='github' />
+    <Icon name='instagram' />
+    <Icon name='linkedin' />
+    <Icon name='gumroad' />
+    <Icon name='youtube' />
+  </div>
+  <hr class='mt-2 mb-4' />
+  <div class='flex flex-col'>
+    <p>
+      I'm currently working as a frontend engineer at <Link
+        href='https://codebuddy.co'
+        newTab
+        >Codebuddy
+      </Link>and trying to learn <Link
+        href='https://affinity.serif.com/en-us/photo/'
+        newTab
+        >Affinity Photo
+      </Link> and <Link href='https://blender.org/' newTab>Blender.</Link>
+    </p>
+    <h3 class='my-4 text-2xl font-bold'>Some graphics stuff</h3>
+    <div class='flex gap-2 flex-col sm:flex-row'>
+      <GraphicsCard href='https://www.instagram.com/p/CgU30DBj8qs/'>
+        <img
+          src='/affinity-img-1.jpg'
+          alt='Black and white image of statue whose face is pixelated and lost identity is written behind it'
+          class='w-full sm:w-[250px] rounded-sm'
+        />
+      </GraphicsCard>
+      <GraphicsCard href='https://www.instagram.com/p/CeJs2trN0yz/'>
+        <img
+          src='/blender-img-1.jpg'
+          alt='Image of a 3D cube in front of 3 glowing spheres'
+          class='w-full sm:w-[250px] rounded-sm'
+        />
+      </GraphicsCard>
+      <GraphicsCard href='https://www.instagram.com/p/BqHgzG9n_l_/'>
+        <img
+          src='/affinity-img-2.jpg'
+          alt='Image of a blurred out colourful gradient circle inside a square which is on top of blurred out colourfu; gradient'
+          class='w-full sm:w-[250px] rounded-sm'
+        />
+      </GraphicsCard>
+    </div>
+    <p class='mt-3 text-sm'>Dev and photo stuff coming soon ™</p>
+  </div>
+</Main>
+
+<style is:global>
+  p {
+    margin: 0.25rem 0;
+  }
+</style>
