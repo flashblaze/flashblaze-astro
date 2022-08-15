@@ -6,6 +6,7 @@ specifiers:
   '@astrojs/react': ^1.0.0
   '@astrojs/sitemap': ^1.0.0
   '@astrojs/tailwind': ^1.0.0
+  '@fontsource/jetbrains-mono': ^4.5.10
   '@fontsource/montserrat': ^4.5.12
   '@swup/gtm-plugin': ^1.0.2
   '@swup/head-plugin': ^1.2.1
@@ -38,6 +39,7 @@ devDependencies:
   '@astrojs/react': 1.0.0_biqbaboplfbrettd7655fr4n2y
   '@astrojs/sitemap': 1.0.0
   '@astrojs/tailwind': 1.0.0
+  '@fontsource/jetbrains-mono': 4.5.10
   '@fontsource/montserrat': 4.5.12
   '@tailwindcss/typography': 0.5.4
   astro: 1.0.5
@@ -493,6 +495,10 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /@fontsource/jetbrains-mono/4.5.10:
+    resolution: {integrity: sha512-dylbkBmAWL0fkjDpDoDbQCwTQ/W3DzLtVXmwGyAyttfKliPGSP2WpAmmMFYp9NpqFMF7CLprFyzppe8u39Orkw==}
     dev: true
 
   /@fontsource/montserrat/4.5.12:
