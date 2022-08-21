@@ -4,6 +4,7 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import partytown from '@astrojs/partytown';
+import image from '@astrojs/image';
 
 // https://astro.build/config
 export default defineConfig({
@@ -23,6 +24,7 @@ export default defineConfig({
         forward: ['dataLayer.push'],
       },
     }),
+    image(),
   ],
   vite: {
     ssr: {
