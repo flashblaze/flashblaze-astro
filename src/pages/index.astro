@@ -1,8 +1,12 @@
 ---
+import { Picture } from '@astrojs/image/components';
 import Main from '../layouts/Main.astro';
 import Icon from '../components/Icon';
 import GraphicsCard from '../components/GraphicsCard.astro';
 import Link from '../components/Link.astro';
+import AffinityImage1 from '../assets/affinity-img-1.jpg';
+import AffinityImage2 from '../assets/affinity-img-2.jpg';
+import BlenderImage1 from '../assets/blender-img-1.jpg';
 ---
 
 <Main
@@ -38,24 +42,33 @@ import Link from '../components/Link.astro';
     <h3 class='my-4 text-2xl font-bold'>Some graphics stuff</h3>
     <div class='flex gap-2 flex-col sm:flex-row'>
       <GraphicsCard href='https://www.instagram.com/p/CgU30DBj8qs/'>
-        <img
-          src='/affinity-img-1.jpg'
+        <Picture
+          src={AffinityImage1}
           alt='Black and white image of statue whose face is pixelated and lost identity is written behind it'
-          class='w-full sm:w-[250px] rounded-sm'
+          widths={[250, 700]}
+          sizes='(min-width: 640px) 250px, 700px'
+          aspectRatio='1:1'
+          class='rounded-sm'
         />
       </GraphicsCard>
       <GraphicsCard href='https://www.instagram.com/p/CeJs2trN0yz/'>
-        <img
-          src='/blender-img-1.jpg'
+        <Picture
+          src={BlenderImage1}
           alt='Image of a 3D cube in front of 3 glowing spheres'
-          class='w-full sm:w-[250px] rounded-sm'
+          widths={[250, 700]}
+          sizes='(min-width: 640px) 250px, 700px'
+          aspectRatio='1:1'
+          class='rounded-sm'
         />
       </GraphicsCard>
       <GraphicsCard href='https://www.instagram.com/p/BqHgzG9n_l_/'>
-        <img
-          src='/affinity-img-2.jpg'
+        <Picture
+          src={AffinityImage2}
           alt='Image of a blurred out colourful gradient circle inside a square which is on top of blurred out colourfu; gradient'
-          class='w-full sm:w-[250px] rounded-sm'
+          widths={[250, 700]}
+          sizes='(min-width: 640px) 250px, 700px'
+          aspectRatio='1:1'
+          class='rounded-sm'
         />
       </GraphicsCard>
     </div>
