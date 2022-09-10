@@ -28,7 +28,7 @@ export default defineConfig({
   ],
   vite: {
     ssr: {
-      noExternal: ['@fontsource/urbanist'],
+      noExternal: ['@fontsource/montserrat', '@fontsource/jetbrains-mono'],
     },
   },
 });
