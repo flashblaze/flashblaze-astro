@@ -19,11 +19,11 @@ export default defineConfig({
     mdx(),
     react(),
     sitemap(),
-    // partytown({
-    //   config: {
-    //     forward: ['dataLayer.push'],
-    //   },
-    // }),
+    partytown({
+      config: {
+        forward: ['dataLayer.push'],
+      },
+    }),
     image(),
   ],
   vite: {
