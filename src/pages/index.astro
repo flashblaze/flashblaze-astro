@@ -4,9 +4,6 @@ import Main from '../layouts/Main.astro';
 import Icon from '../components/Icon';
 import GraphicsCard from '../components/GraphicsCard.astro';
 import Link from '../components/Link.astro';
-import AffinityImage1 from '../assets/affinity-img-1.jpg';
-import AffinityImage2 from '../assets/affinity-img-2.jpg';
-import BlenderImage1 from '../assets/blender-img-1.jpg';
 ---
 
 <Main
@@ -43,32 +40,32 @@ import BlenderImage1 from '../assets/blender-img-1.jpg';
     <div class='flex gap-2 flex-col sm:flex-row'>
       <GraphicsCard href='https://www.instagram.com/p/CgU30DBj8qs/'>
         <Picture
-          src={AffinityImage1}
+          src='/assets/affinity-img-1.jpg'
           alt='Black and white image of statue whose face is pixelated and lost identity is written behind it'
           widths={[250, 700]}
           sizes='(min-width: 640px) 250px, 700px'
           aspectRatio='1:1'
-          class='rounded-sm'
+          background='#3F3F3F'
         />
       </GraphicsCard>
       <GraphicsCard href='https://www.instagram.com/p/CeJs2trN0yz/'>
         <Picture
-          src={BlenderImage1}
+          src='/assets/blender-img-1.jpg'
           alt='Image of a 3D cube in front of 3 glowing spheres'
           widths={[250, 700]}
           sizes='(min-width: 640px) 250px, 700px'
           aspectRatio='1:1'
-          class='rounded-sm'
+          background='#BE0D74'
         />
       </GraphicsCard>
       <GraphicsCard href='https://www.instagram.com/p/BqHgzG9n_l_/'>
         <Picture
-          src={AffinityImage2}
+          src='/assets/affinity-img-2.jpg'
           alt='Image of a blurred out colourful gradient circle inside a square which is on top of blurred out colourfu; gradient'
           widths={[250, 700]}
           sizes='(min-width: 640px) 250px, 700px'
           aspectRatio='1:1'
-          class='rounded-sm'
+          background='#083FAA'
         />
       </GraphicsCard>
     </div>
