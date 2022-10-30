@@ -13,13 +13,7 @@ export default defineConfig({
       theme: 'dracula',
     },
   },
-  integrations: [
-    tailwind(),
-    mdx(),
-    react(),
-    sitemap(),
-    image(),
-  ],
+  integrations: [tailwind(), mdx(), react(), sitemap(), image()],
   vite: {
     ssr: {
       noExternal: ['@fontsource/montserrat', '@fontsource/jetbrains-mono'],
