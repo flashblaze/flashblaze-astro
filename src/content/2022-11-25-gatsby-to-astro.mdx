@@ -1,0 +1,265 @@
+---
+title: 'Migrating my website from Gatsby to Astro'
+slug: 'gatsby-to-astro'
+description: 'Post which details on how and why I migrated my website from Gatsby to Astro along with pros and cons of each framework'
+date: '2022-11-25'
+---
+
+import ReactPlayer from '../components/ReactPlayer';
+import { Picture } from '@astrojs/image/components';
+
+## Background
+
+The year was 2019 and I wanted to build a website using [React](https://reactjs.org). I had some experience in it, having done a project during my 3rd year of engineering but I wanted my site to be SEO friendly, fast, have client side navigation and good <span title="Developer Experience" class="cursor-pointer underline decoration-dotted">DX</span>.
+
+So after researching, I found two frameworks which fit my bill perfectly: [Gatsby](https://www.gatsbyjs.com/) and [Next.js](https://nextjs.org). I wasn't going to call any APIs and my content was all going to be static so I did not need any SSR solution. And since Gatsby had excellent plugin support I decided to go with it.
+
+## Gatsby: The Chosen One
+
+Being a new and a favourite framework amongst the developers there was no shortage of resources. As I was going for writing blog posts (which admittedly I did less of) I followed this tutorial by Andrew Mead:
+
+<ReactPlayer
+  url='https://www.youtube.com/watch?v=8t0vNu2fCCM'
+  client:only='react'
+/>
+
+After some tries and moving from one library to another for rendering some 3D stuff and animating pixels, my site was up and running at [https://old.flashblaze.xyz](https://old.flashblaze.xyz/) which was [https://flashblaze.xyz](https://flashblaze.xyz/) initially.
+
+The tech stack I used was:
+
+- [React](https://reactjs.org/)
+- [Gatsby](https://gatsbyjs.org/)
+- [react-spring](https://github.com/pmndrs/react-spring)
+- [theme-ui](https://theme-ui.com/)
+
+You can find the repo on [GitHub](https://github.com/flashblaze/flashblaze-website) and "peruse" through code.
+
+Due to it being a popular framework built with first class plugin support, there was no shortage of 1st party as well as 3rd party plugins. Want to integrate Google Analytics? There is a plugin for it. Want to lazy load images with blur and have different sizes for mobile, desktop and other screen sizes? There is a plugin for it. Want to integrate it with a CMS of your choice? There is a plugin for it.
+
+You get the picture.
+
+Since I was going to write blog posts using [MDX](https://mdxjs.com/), needed good SEO, along with PWA (why not) and with the above mentioned stack, I needed a lot of plugins and by lot I mean **A LOT**.
+
+Here is my `package.json`
+
+```json
+{
+  "name": "flashblaze-website",
+  "private": true,
+  "description": "Personal website of Neeraj Lagwankar",
+  "version": "1.0.0",
+  "author": "Neeraj Lagwankar <neerajlagwankar@gmail.com>",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "env-cmd -f .env.development gatsby develop -H 0.0.0.0",
+    "format": "prettier --write \"**/*.{js,jsx,json,md,mdx}\"",
+    "lint": "npm run format && eslint --fix . && echo 'Lint complete.'",
+    "start": "npm run develop",
+    "serve": "npm run build && gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "@mdx-js/mdx": "^1.6.22",
+    "@mdx-js/react": "^1.6.22",
+    "@supabase/supabase-js": "^1.21.1",
+    "gatsby": "^3.11.1",
+    "gatsby-plugin-google-analytics": "^3.11.0",
+    "gatsby-plugin-google-fonts-v2": "^1.0.0",
+    "gatsby-plugin-manifest": "^3.11.0",
+    "gatsby-plugin-mdx": "^2.11.0",
+    "gatsby-plugin-offline": "^4.11.0",
+    "gatsby-plugin-preact": "^5.11.0",
+    "gatsby-plugin-react-helmet": "^4.11.0",
+    "gatsby-plugin-remove-serviceworker": "^1.0.0",
+    "gatsby-plugin-sharp": "^3.11.0",
+    "gatsby-plugin-sitemap": "^4.7.0",
+    "gatsby-plugin-theme-ui": "^0.10.1",
+    "gatsby-plugin-typography": "^3.11.0",
+    "gatsby-remark-autolink-headers": "^4.8.0",
+    "gatsby-remark-images": "^5.8.0",
+    "gatsby-remark-prismjs": "^5.8.0",
+    "gatsby-remark-relative-images": "^2.0.2",
+    "gatsby-source-filesystem": "^3.11.0",
+    "preact": "^10.5.14",
+    "preact-render-to-string": "^5.1.19",
+    "prismjs": "^1.24.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
+    "react-icons": "^4.2.0",
+    "react-player": "^2.9.0",
+    "react-spring": "^9.2.4",
+    "react-typography": "^0.16.20",
+    "remark-emoji": "^2.2.0",
+    "theme-ui": "^0.10.0",
+    "typography": "^0.16.21"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "env-cmd": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.2"
+  },
+  "keywords": ["gatsby", "portfolio", "flashblaze"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flashblaze/flashblaze-website"
+  },
+  "bugs": {
+    "url": "https://github.com/flashblaze/flashblaze-website/issues"
+  }
+}
+```
+
+Having this huge repository of plugins made me try different tools and libraries and integrate whatever I wanted and it just worked™.
+
+But a storm was coming 🌪
+
+## Signs of trouble
+
+Both the frameworks were adding features and I too was churning out a post per month (for now). I was fiddling around with my site regarding which analytics to use, trying out [Preact](https://preactjs.org), and some minor fixes here and there.
+
+Then [Gatsby v4](https://www.gatsbyjs.com/blog/whats-new-in-gatsby-4/) was released.
+
+It introduced new features like DSG, SSR, along with a couple of performance improvements. Seeing a major version and looking at the features I wanted to upgrade as well. Since a lot of plugins are dependent on Gatsby's API they also had a comprehensive [upgrade guide](https://www.gatsbyjs.com/docs/reference/release-notes/migrating-from-v3-to-v4/).
+
+The thing was, most of my plugins were unmaintained, or they recommended alternate plugins which did not have full feature set. So I thought why not wait a couple of months and see what happens.
+
+And so I waited.
+
+After approximately 3-4 months I again looked at the plugins and oh boy were things changed! The plugins, the dependencies all were updated by major versions and some of required a full rewrite of my site. I don't remember exactly but I believe `theme-ui` was one of them (on which my whole site was basically built on). I tried updating my dependencies one by one, but it did not work and that's probably **on me**, but I was just plain tired of checking the docs of each dependency, see the migration path and do it all over again.
+
+After spending countless hours and making no significant progress with it, I saw no point in spending more time on it. Add to that the enormous build times on my local machine (I had to build locally a few times due to it being a SSG framework and I wanted to see whether it would break on Vercel or not as it had happened a few times before), as well as on Vercel I just let it be.
+
+<Picture
+  src='/posts/gatsby-to-astro/1_gatsby_vercel_build_times.jpg'
+  alt='Gatsbyjs build times on Vercel'
+  widths={[1199]}
+  sizes='1199px'
+  aspectRatio={1}
+/>
+
+## Astro has entered the chat
+
+During all this time another JS framework was being developed called [Astro](https://astro.build/). Astro claimed to ship **zero JavaScript**, 1st class MD/MDX support, great 1st party plugins and to top it all off, allowed you to choose framework of your choice on a **per page/per component basis**. That's right. You can import a React, Vue, Svelte or any of the [supported frameworks](https://docs.astro.build/en/guides/integrations-guide/#official-integrations) all in a single [Astro component](https://docs.astro.build/en/core-concepts/framework-components/#mixing-frameworks) and it would just work™!
+
+I was beyond impressed with these features and I was keeping a close eye on when Astro will ship **v1.0**. And it was released on [9th Aug 2022](https://astro.build/blog/astro-1/).
+
+<Picture
+  src='/posts/gatsby-to-astro/2_astro_announcement.jpg'
+  alt='Astro v1.0 announcement post'
+  widths={[1903]}
+  sizes='1903px'
+  aspectRatio={2}
+/>
+
+Since I was developing my website from scratch I discarded the old design and redesigned it to make it look decent with minimal JS. And so I pushed my 1st commit on [14th Aug 2022](https://github.com/flashblaze/flashblaze-astro/commit/269464fd165c49f3b317b1a293381bb94c0f5e15)
+
+<Picture
+  src='/posts/gatsby-to-astro/3_redesigned_website.jpg'
+  alt='Redesigned website'
+  widths={[1920]}
+  sizes='1920px'
+  aspectRatio={2}
+/>
+
+## Current tech stack
+
+Instead of some UI framework/styling solution which was specifically tailored for React, I went with [Tailwind CSS](https://tailwindcss.com/). It is hugely popular, has good support for almost all the frameworks, is a 1st party plugin from Astro and was great to get started with. For my posts I chose MDX and for components in MDX I chose React.
+
+Here is my `package.json`. As you can see, it is pretty minimal as opposed to the earlier one all thanks to the things which Astro provides out of the box along with some of the libraries which I chose to forgo due to change in requirements.
+
+```json
+{
+  "name": "flashblaze-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "devDependencies": {
+    "@astrojs/image": "^0.11.6",
+    "@astrojs/mdx": "^0.12.0",
+    "@astrojs/react": "^1.2.2",
+    "@astrojs/sitemap": "^1.0.0",
+    "@astrojs/tailwind": "^2.1.3",
+    "@fontsource/jetbrains-mono": "^4.5.11",
+    "@fontsource/montserrat": "^4.5.13",
+    "@tailwindcss/typography": "^0.5.8",
+    "astro": "^1.6.11",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "instagram-private-api": "^1.45.3",
+    "prettier": "^2.8.0",
+    "prettier-plugin-astro": "^0.7.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "@jsdevtools/rehype-toc": "^3.0.2",
+    "@swup/gtm-plugin": "^1.0.2",
+    "@swup/head-plugin": "^1.2.1",
+    "@swup/scripts-plugin": "^1.1.0",
+    "react-icons": "^4.6.0",
+    "react-player": "^2.11.0",
+    "rehype-autolink-headings": "^6.1.1",
+    "rehype-slug": "^5.1.0",
+    "remark-autolink-headings": "^7.0.1",
+    "remark-gfm": "^3.0.1",
+    "remark-slug": "^7.0.1",
+    "remark-toc": "^8.0.1",
+    "swup": "^2.0.19",
+    "tailwindcss": "^3.2.4"
+  }
+}
+```
+
+The build times also improved by quite a margin.
+
+<Picture
+  src='/posts/gatsby-to-astro/4_astro_vercel_build_times.jpg'
+  alt='Redesigned website'
+  widths={[1200]}
+  sizes='1200px'
+  aspectRatio={2}
+/>
+
+But all said and done, Astro too is not perfect and here are some of the Pros and Cons which I found while working with it.
+
+## Pros and cons of Astro
+
+### Pros
+
+- HTML 1st framework
+
+  - Any component you write which needs to be interactive, you specifically have to enable client side JavaScript which sort of makes you think whether you actually need this part to be interactive or not.
+
+- Multi framework support
+- Good plugin support
+- Easy access to files directory without needing a custom config file
+
+  - While this might have changed in the recent versions of Gatsby, the version of Gatsby which I used needed to create a [`gatsby-node.js`](https://github.com/flashblaze/flashblaze-website/blob/master/gatsby-node.js) file to access the file system. Along with that since Gatsby is GraphQL 1st, I had to access the parsed file using GraphQL which you can find [here](https://github.com/flashblaze/flashblaze-website/blob/master/src/components/Posts.js).
+  - In Astro I don't have to do any of it, and all my files are available using this single 1 line command `const posts = await Astro.glob('../../content/*.mdx');` which is just amazing!
+
+- Good Image components for generating images for various sizes with AVIF support for supported browsers
+- Friendly community in [Discord](https://discord.com/invite/grF4GTXXYm) with constant discussion around various topics
+
+### Cons
+
+- No client side routing
+  - Like Gatsby or Next, Astro does not have any client side navigation. So each link click triggers a full page reload. Astro recommends to use [Swup](https://swup.js.org) as mentioned [here](https://github.com/withastro/astro/tree/main/packages/integrations/turbolinks#looking-for-an-alternative). [Turbo](https://turbo.hotwired.dev/) is also another option though the team does not recommend it. I'm currently using Swup which I'll probably switch from or completely remove it as I have added TOC to MDX and clicking on a title is not redirecting the page to that particular section.
+- Partial HMR
+  - Only `*.astro` files support HMR. So if you're editing MDX or a separate component, you're out of luck.
+- Partial compatibility with React libraries
+  - Some CSS-in-JS libraries are not supported: [#4432](https://github.com/withastro/astro/issues/4432) and I believe it can be said for some `Context` based UI libraries or some state management libraries as well. Although for state management Astro recommends to use [Nano Stores](https://docs.astro.build/en/core-concepts/sharing-state/)
+- No [blurhash](https://blurha.sh/) for images like Next or Gatsby
+
+## The end?
+
+For now, yeah. I'm quite happy with the current setup and who know, instead of switching to another framework and **then** writing a post on it, I might just write one for the heck of it.
