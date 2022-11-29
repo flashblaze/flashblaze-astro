@@ -9,9 +9,6 @@ specifiers:
   '@fontsource/jetbrains-mono': ^4.5.11
   '@fontsource/montserrat': ^4.5.13
   '@jsdevtools/rehype-toc': ^3.0.2
-  '@swup/gtm-plugin': ^1.0.2
-  '@swup/head-plugin': ^1.2.1
-  '@swup/scripts-plugin': ^1.1.0
   '@tailwindcss/typography': ^0.5.8
   astro: ^1.6.11
   eslint: ^8.28.0
@@ -30,14 +27,10 @@ specifiers:
   remark-gfm: ^3.0.1
   remark-slug: ^7.0.1
   remark-toc: ^8.0.1
-  swup: ^2.0.19
   tailwindcss: ^3.2.4
 
 dependencies:
   '@jsdevtools/rehype-toc': 3.0.2
-  '@swup/gtm-plugin': 1.0.2
-  '@swup/head-plugin': 1.2.1
-  '@swup/scripts-plugin': 1.1.0
   react-icons: 4.6.0_react@18.2.0
   react-player: 2.11.0_react@18.2.0
   rehype-autolink-headings: 6.1.1
@@ -46,7 +39,6 @@ dependencies:
   remark-gfm: 3.0.1
   remark-slug: 7.0.1
   remark-toc: 8.0.1
-  swup: 2.0.19
   tailwindcss: 3.2.4_postcss@8.4.18
 
 devDependencies:
@@ -726,32 +718,6 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
     dev: true
-
-  /@swup/gtm-plugin/1.0.2:
-    resolution: {integrity: sha512-HwzS0maX4q/HaU1M0EjFbsSy9qUc8RB6D6+nvGrowcM8KXbVovzlKgJs4PqigXiMZzSSPp9X+HSsqDWL5yJfJQ==}
-    dependencies:
-      '@swup/plugin': 0.1.2
-    dev: false
-
-  /@swup/head-plugin/1.2.1:
-    resolution: {integrity: sha512-crTX9KXkj7isGKyyRKaN+HZ293MYe92QhYWGuc2isSB3tb3EthX3IyPBIjqdhBYMFG6U2XMLWuEge/M9wXAfOw==}
-    dependencies:
-      '@swup/plugin': 1.0.1
-    dev: false
-
-  /@swup/plugin/0.1.2:
-    resolution: {integrity: sha512-PpColpr1tepKYLQx0HN11PPr+yHo2/PjiXOkcRLmntNq2igUBwUqwerkXjDXn5IZysutg+HiQfUP8ZElGUneJA==}
-    dev: false
-
-  /@swup/plugin/1.0.1:
-    resolution: {integrity: sha512-QrTGn1DLx+50CNsk6oGzUFnyNyLkDK6iLb032qKImmAXS+0Dd1cwa8cSGvJ+I27J4qR8y6oJNurgHIEc6ZCTrg==}
-    dev: false
-
-  /@swup/scripts-plugin/1.1.0:
-    resolution: {integrity: sha512-/2V5cUrmzxxZH91bBk0WjsWMJhjKhb32wZ41Sw/HXAUf2gLvqebvW6Lw98HJsagNXxVqqjmzTDIfdbHGwVsG/w==}
-    dependencies:
-      '@swup/plugin': 1.0.1
-    dev: false
 
   /@tailwindcss/typography/0.5.8_tailwindcss@3.2.4:
     resolution: {integrity: sha512-xGQEp8KXN8Sd8m6R4xYmwxghmswrd0cPnNI2Lc6fmrC3OojysTBJJGSIVwPV56q4t6THFUK3HJ0EaWwpglSxWw==}
@@ -1515,12 +1481,6 @@ packages:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
     dev: true
-
-  /delegate-it/3.0.1:
-    resolution: {integrity: sha512-XU8H4pjDGBW74hFIbjdLPnvtU3HF3P9bbZvoFBSBLb5JgNaTkRb/2lvC1V+9kmZsxVR0kad4bU3rYhQ/4Ij+Gw==}
-    dependencies:
-      typed-query-selector: 2.8.0
-    dev: false
 
   /dequal/2.0.3:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
@@ -3805,11 +3765,6 @@ packages:
       is-wsl: 2.2.0
     dev: true
 
-  /opencollective-postinstall/2.0.3:
-    resolution: {integrity: sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==}
-    hasBin: true
-    dev: false
-
   /optionator/0.9.1:
     resolution: {integrity: sha512-74RlY5FCnhq4jRxVUPKDaRwrVNXMqsGsiW6AJw4XK8hmtm10wC0ypZBLw5IIp85NZMr91+qd1RvvENwg7jjRFw==}
     engines: {node: '>= 0.8.0'}
@@ -4785,14 +4740,6 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  /swup/2.0.19:
-    resolution: {integrity: sha512-cyqcVG5ZlIwqRjvLhZvYFBoc8vDDZ5V0OMthTOa7OE/xowzqyhGRJ2hvFr6ecnJfpiTJGN5CIq+Ep2G7ty9gcw==}
-    requiresBuild: true
-    dependencies:
-      delegate-it: 3.0.1
-      opencollective-postinstall: 2.0.3
-    dev: false
-
   /synckit/0.8.4:
     resolution: {integrity: sha512-Dn2ZkzMdSX827QbowGbU/4yjWuvNaCoScLLoMo/yKbu+P4GBR6cRGKZH27k6a9bRzdqcyd1DE96pQtQ6uNkmyw==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -4965,10 +4912,6 @@ packages:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
     dev: true
-
-  /typed-query-selector/2.8.0:
-    resolution: {integrity: sha512-jo9NLGQ0b7sT9TK3mxzemATQqTb/uh8TRvcOK6WSwKNewALt3AA8q2m7cdpF/uUbd/cdixaBxCGe6fpzpEWbGw==}
-    dev: false
 
   /typescript/4.8.4:
     resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
