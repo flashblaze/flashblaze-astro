@@ -5,6 +5,7 @@ description: 'Walkthrough on how to display real-time views using React, Gatsby 
 date: '2020-04-07'
 ---
 
+import Comments from '../components/React/Comments';
 import { Picture } from '@astrojs/image/components';
 
 This post is my take on displaying real-time post views using Firebase and
@@ -366,3 +367,5 @@ I hope you've liked this post. Any suggestions, improvements are welcome.
 <br />
 
 ### You can view the complete project on [GitHub](https://github.com/flashblaze/gatsby-firebase-realtime-views)
+
+<Comments client:only='react' />

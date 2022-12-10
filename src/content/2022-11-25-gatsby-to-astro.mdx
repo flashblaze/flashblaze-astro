@@ -5,7 +5,8 @@ description: 'Post which details on how and why I migrated my website from Gatsb
 date: '2022-11-25'
 ---
 
-import ReactPlayer from '../components/ReactPlayer';
+import Comments from '../components/React/Comments';
+import ReactPlayer from '../components/React/ReactPlayer';
 import { Picture } from '@astrojs/image/components';
 
 ## Background
@@ -263,3 +264,5 @@ But all said and done, Astro too is not perfect and here are some of the Pros an
 ## The end?
 
 For now, yeah. I'm quite happy with the current setup and who knows, instead of switching to another framework and **then** writing a post on it, I might just write one for the heck of it.
+
+<Comments client:only='react' />
