@@ -3,7 +3,7 @@ import InViewParent from './InViewParent';
 
 const ReactPlayer = ({ url }) => (
   <InViewParent>
-    <RP url={url} controls light width='100%' />;
+    <RP url={url} controls light width='100%' />
   </InViewParent>
 );
 
