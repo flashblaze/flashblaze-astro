@@ -1,0 +1,71 @@
+---
+title: 'Integrating Sandpack in my Astro blog for the fun of it'
+slug: 'integrating-sandpack'
+description: 'Integrating Sandpack into my Astro blog and try to game the SEO with some buzz words'
+date: '2023-01-07'
+---
+
+import SandpackDemo from '../components/React/SandpackDemo';
+import Comments from '../components/React/Comments';
+
+_This is not going to be a technical blog post per se. I've always wanted to try out Sandpack and thought why not integrate it and also create a fluff piece with some buzz words and miniscule amount of information sprinkled in._
+
+If you're a web dev, you most likely have heard of or come across [CodeSandbox](https://codesandbox.io/) which is a platform for creating, sharing prototypes and iterate over your ideas in the browser without opening your IDE. Interestingly CodeSandbox also allows you to embed the sandbox in your code itself. So now the question is what is Sandpack and why not use CodeSandbox instead?
+
+Good question. Moving on.
+
+Just kidding. Even though CodeSandbox allows you to embed the sandbox, there is not much room left for customization, which is possible via [Sandpack](https://sandpack.codesandbox.io/) as it is a "component toolkit for creating live-running code editing experiences, using the power of CodeSandbox"
+
+Below is a sample React code with _atomDark_ as theme.
+
+<SandpackDemo client:only='react' />
+
+They also provide a [theme builder](https://sandpack.codesandbox.io/theme) to customize Sandpack how you want it which I found really really cool which I'll definitely explore later.
+
+Now it remains to be seen whether I'll integrate it in my future posts and make it interactive.
+
+<h3>_I'm adding below content due to the issue I found during build_</h3>
+
+It seems this post did turn into a technical one as I was not able to build the project due to this error:
+
+```bash
+ error   Named export 'Sandpack' not found. The requested module '@codesandbox/sandpack-react' is a CommonJS module, which may not support all module.exports as named exports.
+  CommonJS modules can always be imported via the default export, for example using:
+
+  import pkg from '@codesandbox/sandpack-react';
+  const { Sandpack } = pkg;
+
+  File:
+    G:\flashblaze-astro\node_modules\.pnpm\astro@1.8.0\node_modules\astro\dist\runtime\server\render\page.js:89:30
+  Code:
+    88 |   }
+    > 89 |   const factoryReturnValue = await componentFactory(result, props, children);
+         |                              ^
+      90 |   const factoryIsHeadAndContent = isHeadAndContent(factoryReturnValue);
+      91 |   if (isRenderTemplateResult(factoryReturnValue) || factoryIsHeadAndContent) {
+      92 |     await bufferHeadContent(result);
+
+```
+
+There is a similar issue I found on [GitHub](https://github.com/withastro/astro/issues/5653). Even after applying the recommended fix it does not work as the issue is with the package itself.
+
+So to fix it in Astro, you have to exclude it from SSR in `astro.config.mjs` like so:
+
+```js
+export default defineConfig({
+  //... your rest of the config
+  vite: {
+    ssr: {
+      noExternal: [
+        '@codesandbox/sandpack-react',
+        '@codesandbox/sandpack-themes',
+        '@codesandbox/sandpack-client',
+      ],
+    },
+  },
+});
+```
+
+This will exclude the Sandpack libraries during SSR.
+
+<Comments client:only='react' />

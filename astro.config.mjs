@@ -27,15 +27,9 @@ export default defineConfig({
           rehypeAutolinkHeadings,
           {
             behavior: 'wrap',
-            test: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
           },
         ],
-        [
-          toc,
-          {
-            headings: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-          },
-        ],
+        toc,
       ],
       extendPlugins: 'astroDefaults', // If set to false, features like autolinking from GFM aren't applied
     }),
@@ -45,7 +39,13 @@ export default defineConfig({
   ],
   vite: {
     ssr: {
-      noExternal: ['@fontsource/montserrat', '@fontsource/jetbrains-mono'],
+      noExternal: [
+        '@fontsource/montserrat',
+        '@fontsource/jetbrains-mono',
+        '@codesandbox/sandpack-react',
+        '@codesandbox/sandpack-themes',
+        '@codesandbox/sandpack-client',
+      ],
     },
   },
 });
