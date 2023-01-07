@@ -28,6 +28,8 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
+    "@codesandbox/sandpack-react": "^1.18.4",
+    "@codesandbox/sandpack-themes": "^1.17.0",
     "@giscus/react": "^2.2.6",
     "@jsdevtools/rehype-toc": "^3.0.2",
     "react-icons": "^4.7.1",

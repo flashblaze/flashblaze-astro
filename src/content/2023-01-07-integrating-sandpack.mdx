@@ -1,0 +1,27 @@
+---
+title: 'Integrating Sandpack in my Astro blog for the fun of it'
+slug: 'integrating-sandpack'
+description: 'Integrating Sandpack into my Astro blog and try to game the SEO with some buzz words.'
+date: '2023-01-07'
+---
+
+import SandpackDemo from '../components/React/SandpackDemo';
+import Comments from '../components/React/Comments';
+
+_This is not going to be a technical blog post per se. I've always wanted to try out Sandpack and thought why not integrate it and also create a fluff piece with some buzz words and miniscule amount of information sprinkled in._
+
+If you're a web dev, you most likely have heard of or come across [CodeSandbox](https://codesandbox.io/) which is a platform for creating, sharing prototypes and iterate over your ideas in the browser without opening your IDE. Interestingly CodeSandbox also allows you to embed the sandbox in your code itself. So now the question is what is Sandpack and why not use CodeSandbox instead?
+
+Good question. Moving on.
+
+Just kidding. Even though CodeSandbox allows you to embed the sandbox, there is not much room left for customization, which is possible via [Sandpack](https://sandpack.codesandbox.io/) as it is a "component toolkit for creating live-running code editing experiences, using the power of CodeSandbox"
+
+Below is a sample React code with _atomDark_ as theme.
+
+<SandpackDemo client:only='react' />
+
+They also provide a [theme builder](https://sandpack.codesandbox.io/theme) to customize Sandpack how you want it which I found really really cool which I'll definitely explore later.
+
+Now it remains to be seen whether I'll integrate it in my future posts and make it interactive.
+
+<Comments client:only='react' />
