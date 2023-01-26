@@ -31,7 +31,9 @@ export default defineConfig({
         ],
         toc,
       ],
-      extendPlugins: 'astroDefaults', // If set to false, features like autolinking from GFM aren't applied
+      extendMarkdownConfig: false,
+      smartypants: true,
+      gfm: true,
     }),
     react(),
     sitemap(),
