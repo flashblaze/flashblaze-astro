@@ -5,7 +5,9 @@ import {
   SiLinkedin,
   SiGumroad,
   SiYoutube,
+  SiUnsplash,
 } from 'react-icons/si/index';
+import { TbSun, TbMoonStars } from 'react-icons/tb/index';
 
 const Icon = ({ name }) => {
   const renderContent = () => {
@@ -88,6 +90,31 @@ const Icon = ({ name }) => {
           >
             <SiYoutube className='fill-red-500' size={size} title='YouTube' />
           </a>
+        );
+
+      case 'unsplash':
+        return (
+          <a
+            target='_blank'
+            className={baseClass}
+            href='https://unsplash.com/@neeraj_artx/'
+          >
+            <SiUnsplash
+              className='dark:fill-slate-200 fill-black'
+              size={size}
+              title='Unsplash'
+            />
+          </a>
+        );
+
+      case 'sun':
+        return (
+          <TbSun className='dark:stroke-yellow-300' size={size} title='Sun' />
+        );
+
+      case 'moon':
+        return (
+          <TbMoonStars className='stroke-sky-500' size={size} title='Moon' />
         );
 
       default:
