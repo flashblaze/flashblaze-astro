@@ -9,7 +9,21 @@ export interface Props {
 const { title, description, ogUrl, ogImage } = Astro.props as Props;
 import Link from '../components/Astro/Link.astro';
 import SEO from '../components/Astro/SEO.astro';
+import ThemeSwitcher from '../components/Astro/ThemeSwitcher.astro';
 ---
+
+<script>
+  navigator.serviceWorker.getRegistrations().then(workers => {
+    workers.forEach(worker => {
+      if (worker.scope === 'https://flashblaze.xyz/') {
+        worker
+          .unregister()
+          .then(() => console.log(`Unregistered worker: ${worker.scope}`))
+          .catch(err => console.log(err));
+      }
+    });
+  });
+</script>
 
 <html lang='en'>
   <SEO
@@ -22,9 +36,13 @@ import SEO from '../components/Astro/SEO.astro';
     class='dark:bg-zinc-900 dark:text-white text-black font-sans w-full max-w-3xl mx-auto'
   >
     <div class='flex flex-col justify-center px-8'>
-      <nav class='flex items-center py-8'>
-        <Link href='/' customClass=''>Home</Link>
-        <Link href='/posts' customClass='ml-5'>Posts</Link>
+      <nav class='flex items-center py-8 justify-between'>
+        <div>
+          <Link href='/' customClass=''>Home</Link>
+          <Link href='/posts' customClass='ml-5'>Posts</Link>
+        </div>
+        <ThemeSwitcher />
+        <!-- <button onclick='handleClick()'>Hi</button> -->
       </nav>
       <main class='flex flex-col justify-center p-0 transition-fade'>
         <slot />
@@ -41,16 +59,4 @@ import SEO from '../components/Astro/SEO.astro';
       }
     </style>
   </body>
-  <script>
-    navigator.serviceWorker.getRegistrations().then(workers => {
-      workers.forEach(worker => {
-        if (worker.scope === 'https://flashblaze.xyz/') {
-          worker
-            .unregister()
-            .then(() => console.log(`Unregistered worker: ${worker.scope}`))
-            .catch(err => console.log(err));
-        }
-      });
-    });
-  </script>
 </html>

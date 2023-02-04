@@ -1,0 +1,99 @@
+---
+import Icon from '../React/Icon';
+---
+
+<theme-switcher class='light-theme hidden'>
+  <button class='light-theme-button'>
+    <Icon name='sun' />
+  </button>
+</theme-switcher>
+
+<theme-switcher class='dark-theme hidden'>
+  <button class='dark-theme-button'>
+    <Icon name='moon' />
+  </button>
+</theme-switcher>
+
+<script>
+  class LightDark extends HTMLElement {
+    constructor() {
+      super();
+
+      const lightThemeButton = this.querySelector('.light-theme-button');
+      const darkThemeButton = this.querySelector('.dark-theme-button');
+
+      lightThemeButton?.addEventListener('click', () => {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        const themeButtons = document.querySelectorAll('theme-switcher');
+        themeButtons.forEach(button => {
+          if (localStorage.getItem('theme') === 'dark') {
+            if (button?.getAttribute('class')?.includes('light-theme')) {
+              button.setAttribute('class', 'light-theme hidden');
+            }
+          }
+          if (button?.getAttribute('class')?.includes('dark-theme')) {
+            button.setAttribute('class', 'dark-theme');
+          }
+        });
+        localStorage.setItem('theme', 'light');
+      });
+
+      darkThemeButton?.addEventListener('click', () => {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        const themeButtons = document.querySelectorAll('theme-switcher');
+        themeButtons.forEach(button => {
+          if (button?.getAttribute('class')?.includes('light-theme')) {
+            button.setAttribute('class', 'light-theme');
+          }
+          if (localStorage.getItem('theme') === 'light') {
+            if (button?.getAttribute('class')?.includes('dark-theme')) {
+              button.setAttribute('class', 'dark-theme hidden');
+            }
+          }
+        });
+        localStorage.setItem('theme', 'dark');
+      });
+    }
+  }
+
+  customElements.define('theme-switcher', LightDark);
+
+  {
+    const themeButtons = document.querySelectorAll('theme-switcher');
+    themeButtons.forEach(button => {
+      if (localStorage.getItem('theme') === 'dark') {
+        if (button?.getAttribute('class')?.includes('light-theme')) {
+          button.setAttribute('class', 'light-theme');
+        }
+      } else if (localStorage.getItem('theme') === 'light') {
+        if (button?.getAttribute('class')?.includes('dark-theme')) {
+          button.setAttribute('class', 'dark-theme');
+        }
+      }
+    });
+  }
+</script>
+
+<script is:inline>
+  const theme = (() => {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      return localStorage.getItem('theme');
+    }
+
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+
+    return 'light';
+  })();
+
+  if (theme === 'light') {
+    document.documentElement.classList.remove('dark');
+  } else {
+    document.documentElement.classList.add('dark');
+  }
+
+  window.localStorage.setItem('theme', theme);
+</script>
