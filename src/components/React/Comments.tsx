@@ -3,7 +3,9 @@ import useThemeDetector from '../../hooks/useThemeDetector';
 import InViewParent from './InViewParent';
 
 const Comments = () => {
-  const isDarkTheme = useThemeDetector();
+  const theme = useThemeDetector();
+
+  console.log(theme, localStorage.getItem('theme'));
 
   return (
     <InViewParent>
@@ -17,7 +19,7 @@ const Comments = () => {
         reactionsEnabled='1'
         emitMetadata='0'
         inputPosition='top'
-        theme={isDarkTheme ? 'dark' : 'light'}
+        theme={theme}
         lang='en'
         loading='lazy'
       />
