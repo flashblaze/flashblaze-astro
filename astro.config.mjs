@@ -37,7 +37,9 @@ export default defineConfig({
     }),
     react(),
     sitemap(),
-    image(),
+    image({
+      serviceEntryPoint: '@astrojs/image/sharp',
+    }),
   ],
   vite: {
     ssr: {
