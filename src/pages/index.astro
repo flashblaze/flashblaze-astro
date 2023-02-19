@@ -1,11 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
-import { Picture } from '@astrojs/image/components';
+import { Image, Picture } from '@astrojs/image/components';
 
 import Main from '../layouts/Main.astro';
 import Icon from '../components/React/Icon';
 import GraphicsCard from '../components/Astro/GraphicsCard.astro';
 import Link from '../components/Astro/Link.astro';
+
+import AffinityImg1 from '../../public/assets/affinity-img-1.jpg';
+import AffinityImg2 from '../../public/assets/affinity-img-2.jpg';
+import BlenderImg1 from '../../public/assets/blender-img-1.jpg';
 
 const posts = await getCollection('posts');
 
@@ -58,32 +62,38 @@ const latestPostDate = date.toUTCString().slice(0, 16);
     <div class='flex gap-2 flex-col sm:flex-row'>
       <GraphicsCard href='https://www.instagram.com/p/CgU30DBj8qs/'>
         <Picture
-          src='/assets/affinity-img-1.jpg'
+          src={AffinityImg1}
           alt='Black and white image of statue whose face is pixelated and lost identity is written behind it'
-          widths={[250, 700]}
-          sizes='(min-width: 640px) 250px, 700px'
-          aspectRatio='1:1'
+          widths={[500, 700]}
+          sizes='(max-width: 420px) 500px, (max-width: 640px) 700px'
           background='#3F3F3F'
+          width={AffinityImg1.width}
+          height={AffinityImg1.width}
+          loading='eager'
         />
       </GraphicsCard>
       <GraphicsCard href='https://www.instagram.com/p/CeJs2trN0yz/'>
         <Picture
-          src='/assets/blender-img-1.jpg'
+          src={BlenderImg1}
           alt='Image of a 3D cube in front of 3 glowing spheres'
-          widths={[250, 700]}
-          sizes='(min-width: 640px) 250px, 700px'
-          aspectRatio='1:1'
+          widths={[500, 700]}
+          sizes='(max-width: 420px) 500px, (max-width: 640px) 700px'
           background='#BE0D74'
+          height={BlenderImg1.height}
+          width={BlenderImg1.width}
+          loading='eager'
         />
       </GraphicsCard>
       <GraphicsCard href='https://www.instagram.com/p/BqHgzG9n_l_/'>
         <Picture
-          src='/assets/affinity-img-2.jpg'
+          src={AffinityImg2}
           alt='Image of a blurred out colourful gradient circle inside a square which is on top of blurred out colourfu; gradient'
-          widths={[250, 700]}
-          sizes='(min-width: 640px) 250px, 700px'
-          aspectRatio='1:1'
+          widths={[500, 700]}
+          sizes='(max-width: 420px) 500px, (max-width: 640px) 700px'
           background='#083FAA'
+          height={AffinityImg2.height}
+          width={AffinityImg2.width}
+          loading='eager'
         />
       </GraphicsCard>
     </div>
