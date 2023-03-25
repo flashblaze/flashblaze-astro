@@ -1,24 +1,24 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@astrojs/image': ^0.16.1
-  '@astrojs/mdx': ^0.18.1
+  '@astrojs/image': ^0.16.2
+  '@astrojs/mdx': ^0.18.2
   '@astrojs/react': ^2.1.0
   '@astrojs/sitemap': ^1.2.1
   '@astrojs/tailwind': ^3.1.1
-  '@codesandbox/sandpack-react': ^2.1.7
+  '@codesandbox/sandpack-react': ^2.1.11
   '@codesandbox/sandpack-themes': ^2.0.21
   '@fontsource/jetbrains-mono': ^4.5.12
   '@fontsource/montserrat': ^4.5.14
   '@giscus/react': ^2.2.8
   '@jsdevtools/rehype-toc': ^3.0.2
   '@tailwindcss/typography': ^0.5.9
-  astro: ^2.1.3
+  astro: ^2.1.7
   eslint: ^8.36.0
-  eslint-config-prettier: ^8.7.0
+  eslint-config-prettier: ^8.8.0
   eslint-plugin-prettier: ^4.2.1
   instagram-private-api: ^1.45.3
-  prettier: ^2.8.4
+  prettier: ^2.8.7
   prettier-plugin-astro: ^0.8.0
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -31,11 +31,11 @@ specifiers:
   remark-gfm: ^3.0.1
   remark-slug: ^7.0.1
   remark-toc: ^8.0.1
-  sharp: ^0.31.3
+  sharp: ^0.32.0
   tailwindcss: ^3.2.7
 
 dependencies:
-  '@codesandbox/sandpack-react': 2.1.7_7rphy4ffeqpsohf32avvkz4pm4
+  '@codesandbox/sandpack-react': 2.1.11_7rphy4ffeqpsohf32avvkz4pm4
   '@codesandbox/sandpack-themes': 2.0.21
   '@giscus/react': 2.2.8_biqbaboplfbrettd7655fr4n2y
   '@jsdevtools/rehype-toc': 3.0.2
@@ -48,24 +48,24 @@ dependencies:
   remark-gfm: 3.0.1
   remark-slug: 7.0.1
   remark-toc: 8.0.1
-  sharp: 0.31.3
+  sharp: 0.32.0
   tailwindcss: 3.2.7_postcss@8.4.21
 
 devDependencies:
-  '@astrojs/image': 0.16.1_astro@2.1.3+sharp@0.31.3
-  '@astrojs/mdx': 0.18.1_astro@2.1.3+rollup@3.11.0
+  '@astrojs/image': 0.16.2_astro@2.1.7+sharp@0.32.0
+  '@astrojs/mdx': 0.18.2_astro@2.1.7+rollup@3.11.0
   '@astrojs/react': 2.1.0_nsgh7lqw2e2kb5wanadocemtdi
   '@astrojs/sitemap': 1.2.1
-  '@astrojs/tailwind': 3.1.1_2l4ywwlgzw2satesmi43zum3jy
+  '@astrojs/tailwind': 3.1.1_xwlinsvcxfu6nyuevlo4g7jv7y
   '@fontsource/jetbrains-mono': 4.5.12
   '@fontsource/montserrat': 4.5.14
   '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.7
-  astro: 2.1.3_sharp@0.31.3
+  astro: 2.1.7_sharp@0.32.0
   eslint: 8.36.0
-  eslint-config-prettier: 8.7.0_eslint@8.36.0
-  eslint-plugin-prettier: 4.2.1_eqzx3hpkgx5nnvxls3azrcc7dm
+  eslint-config-prettier: 8.8.0_eslint@8.36.0
+  eslint-plugin-prettier: 4.2.1_ywlv3zveqg2kxfq44lflihh5mm
   instagram-private-api: 1.45.3
-  prettier: 2.8.4
+  prettier: 2.8.7
   prettier-plugin-astro: 0.8.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -92,27 +92,27 @@ packages:
     resolution: {integrity: sha512-77aacobLKcL98NmhK3OBS5EHIrX9gs1ckB/vGSIdkVZuB7u51V4jh05I6W0tSvG7/86tALv6QtHTRZ8rLhFTbQ==}
     dev: true
 
-  /@astrojs/compiler/1.2.0:
-    resolution: {integrity: sha512-O8yPCyuq+PU9Fjht2tIW6WzSWiq8qDF1e8uAX2x+SOGFzKqOznp52UlDG2mSf+ekf0Z3R34sb64O7SgX+asTxg==}
+  /@astrojs/compiler/1.3.0:
+    resolution: {integrity: sha512-VxSj3gh/UTB/27rkRCT7SvyGjWtuxUO7Jf7QqDduch7j/gr/uA5P/Q5I/4zIIrZjy2yQAKyKLoox2QI2mM/BSA==}
     dev: true
 
-  /@astrojs/image/0.16.1_astro@2.1.3+sharp@0.31.3:
-    resolution: {integrity: sha512-NI5wscxJC0qmvAqnNT79vucQcBP1ZzhVMd8iqy/bhjoccxEgFFvqLIUa88Tf/br3eyhHfN95FDIqNTOs4K3HSg==}
+  /@astrojs/image/0.16.2_astro@2.1.7+sharp@0.32.0:
+    resolution: {integrity: sha512-MWIPEgc2vbiNgbl0cmHYbaAZeXDNlFg5BAn0jQ4fQYYs8r44Fwr7p1DDwdZICc02EAKjAh6fLPFndBCkGA4+Qw==}
     peerDependencies:
-      astro: ^2.1.3
+      astro: ^2.1.6
       sharp: '>=0.31.0'
     peerDependenciesMeta:
       sharp:
         optional: true
     dependencies:
       '@altano/tiny-async-pool': 1.0.2
-      astro: 2.1.3_sharp@0.31.3
+      astro: 2.1.7_sharp@0.32.0
       http-cache-semantics: 4.1.0
       image-size: 1.0.2
       kleur: 4.1.5
       magic-string: 0.27.0
       mime: 3.0.0
-      sharp: 0.31.3
+      sharp: 0.32.0
     dev: true
 
   /@astrojs/language-server/0.28.3:
@@ -121,7 +121,7 @@ packages:
     dependencies:
       '@vscode/emmet-helper': 2.8.4
       events: 3.3.0
-      prettier: 2.8.4
+      prettier: 2.8.7
       prettier-plugin-astro: 0.7.0
       source-map: 0.7.4
       vscode-css-languageservice: 6.1.1
@@ -133,15 +133,14 @@ packages:
       vscode-uri: 3.0.6
     dev: true
 
-  /@astrojs/markdown-remark/2.1.0_astro@2.1.3:
-    resolution: {integrity: sha512-w9T5o3UWQIfMcCkM2nLWrlfVQazh/7mw+2N/85QGcSUkZy6oNJoyy8Xz/ZkDhHLx8HPO0RT9fABR0B/H+aDaEw==}
+  /@astrojs/markdown-remark/2.1.2_astro@2.1.7:
+    resolution: {integrity: sha512-rYkmFEv2w7oEk6ZPgxHkhWzwcxSUGc1vJU0cbCu5sHF8iFNnc1cmMsjXWa5DrU5sCEf8VVYE1iFlbbnFzvHQJw==}
     peerDependencies:
-      astro: ^2.1.0
+      astro: ^2.1.5
     dependencies:
       '@astrojs/prism': 2.1.1
-      astro: 2.1.3_sharp@0.31.3
+      astro: 2.1.7_sharp@0.32.0
       github-slugger: 1.4.0
-      image-size: 1.0.2
       import-meta-resolve: 2.1.0
       rehype-raw: 6.1.1
       rehype-stringify: 9.0.3
@@ -157,11 +156,11 @@ packages:
       - supports-color
     dev: true
 
-  /@astrojs/mdx/0.18.1_astro@2.1.3+rollup@3.11.0:
-    resolution: {integrity: sha512-C5pdzAMyigZxbOOtbsmC4RsDOTTTtIbSJkk4FLD5aTfQ9//d/rEep5S9cFFeIARrHkjPiDP374WYm0RZqtN9ig==}
+  /@astrojs/mdx/0.18.2_astro@2.1.7+rollup@3.11.0:
+    resolution: {integrity: sha512-eSR6R62I5cwM6AH8r4UhyBwcV/KKLaZ2siXDA9QR9O4uzUBRnT4gwvoGOvaqpjZCvdNJ2ThaVjePH4DFvxFhaQ==}
     engines: {node: '>=16.12.0'}
     dependencies:
-      '@astrojs/markdown-remark': 2.1.0_astro@2.1.3
+      '@astrojs/markdown-remark': 2.1.2_astro@2.1.7
       '@astrojs/prism': 2.1.1
       '@mdx-js/mdx': 2.3.0
       '@mdx-js/rollup': 2.3.0_rollup@3.11.0
@@ -217,14 +216,14 @@ packages:
       zod: 3.19.1
     dev: true
 
-  /@astrojs/tailwind/3.1.1_2l4ywwlgzw2satesmi43zum3jy:
+  /@astrojs/tailwind/3.1.1_xwlinsvcxfu6nyuevlo4g7jv7y:
     resolution: {integrity: sha512-Wx/ZtVnmtfqHWGVzvUEYZm8rufVKVgDIef0q6fzwUxoT1EpTTwBkTbpnzooogewMLOh2eTscasGe3Ih2HC1wVA==}
     peerDependencies:
       astro: ^2.1.3
       tailwindcss: ^3.0.24
     dependencies:
       '@proload/core': 0.3.3
-      astro: 2.1.3_sharp@0.31.3
+      astro: 2.1.7_sharp@0.32.0
       autoprefixer: 10.4.12_postcss@8.4.21
       postcss: 8.4.21
       postcss-load-config: 4.0.1_postcss@8.4.21
@@ -591,8 +590,8 @@ packages:
       strict-event-emitter: 0.4.6
     dev: false
 
-  /@codesandbox/sandpack-client/2.1.0:
-    resolution: {integrity: sha512-/z3EbaYaatd45DWAOvhU+8M7cMaDlmBEjyQaahNXRDY7keSraMZnsdImmASlU9qqLm6vQpAu1ZXtOMeL7dkMww==}
+  /@codesandbox/sandpack-client/2.1.9:
+    resolution: {integrity: sha512-cITKFBwchcLcLwy6wi6NeF31X3duSND1hNytvHe43wAh5zp0IxDRrhKB5dFl4snq+A38SaKH+Yrn1c0vEd4duA==}
     dependencies:
       '@codesandbox/nodebox': 0.1.4
       buffer: 6.0.3
@@ -600,8 +599,8 @@ packages:
       outvariant: 1.3.0
     dev: false
 
-  /@codesandbox/sandpack-react/2.1.7_7rphy4ffeqpsohf32avvkz4pm4:
-    resolution: {integrity: sha512-bsKSOlhL3sk65ZcnH/Spr7L8WNy9OYO4dR0jesvYHSFA3erghYShZkrDYUGRkQ6Z93AmeUJaqjEWCLFVgWkISg==}
+  /@codesandbox/sandpack-react/2.1.11_7rphy4ffeqpsohf32avvkz4pm4:
+    resolution: {integrity: sha512-xssAD3pYvfe+YxmnWUgbWQvi694obgKczWsuAdGx0JGCHVMNYezYAOlActZehquKjgnYyWNgomYgHtsfdsxUpA==}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
       react-dom: ^16.8.0 || ^17 || ^18
@@ -615,7 +614,7 @@ packages:
       '@codemirror/language': 6.4.0
       '@codemirror/state': 6.2.0
       '@codemirror/view': 6.7.3
-      '@codesandbox/sandpack-client': 2.1.0
+      '@codesandbox/sandpack-client': 2.1.9
       '@lezer/highlight': 1.1.3
       '@react-hook/intersection-observer': 3.1.1_react@18.2.0
       '@stitches/core': 1.2.8
@@ -1462,8 +1461,8 @@ packages:
     hasBin: true
     dev: true
 
-  /astro/2.1.3_sharp@0.31.3:
-    resolution: {integrity: sha512-5LFo/ixDXs84tgrSbzz0X5c7nzLfkag7w4tgOpBRL/DkveP83v+nSe3KjqwYLPL5vNY9UvryKHsfC0uu4TQz0g==}
+  /astro/2.1.7_sharp@0.32.0:
+    resolution: {integrity: sha512-Eaq8/mJTx+kbghfW5ZEJ8rKiEduo03Rn6R/fp/gJGpBSRm/0FiVxVsrpq5SV4kUPrttEi1zMEnEc2GP6JWfXeg==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
     peerDependencies:
@@ -1472,9 +1471,9 @@ packages:
       sharp:
         optional: true
     dependencies:
-      '@astrojs/compiler': 1.2.0
+      '@astrojs/compiler': 1.3.0
       '@astrojs/language-server': 0.28.3
-      '@astrojs/markdown-remark': 2.1.0_astro@2.1.3
+      '@astrojs/markdown-remark': 2.1.2_astro@2.1.7
       '@astrojs/telemetry': 2.1.0
       '@astrojs/webapi': 2.1.0
       '@babel/core': 7.19.3
@@ -1502,7 +1501,6 @@ packages:
       github-slugger: 2.0.0
       gray-matter: 4.0.3
       html-escaper: 3.0.3
-      image-size: 1.0.2
       kleur: 4.1.5
       magic-string: 0.27.0
       mime: 3.0.0
@@ -1513,7 +1511,7 @@ packages:
       rehype: 12.0.1
       semver: 7.3.8
       server-destroy: 1.0.1
-      sharp: 0.31.3
+      sharp: 0.32.0
       shiki: 0.11.1
       slash: 4.0.0
       string-width: 5.1.2
@@ -2106,8 +2104,8 @@ packages:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
 
-  /eslint-config-prettier/8.7.0_eslint@8.36.0:
-    resolution: {integrity: sha512-HHVXLSlVUhMSmyW4ZzEuvjpwqamgmlfkutD53cYXLikh4pt/modINRcCIApJ84czDxM4GZInwUrromsDdTImTA==}
+  /eslint-config-prettier/8.8.0_eslint@8.36.0:
+    resolution: {integrity: sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
@@ -2115,7 +2113,7 @@ packages:
       eslint: 8.36.0
     dev: true
 
-  /eslint-plugin-prettier/4.2.1_eqzx3hpkgx5nnvxls3azrcc7dm:
+  /eslint-plugin-prettier/4.2.1_ywlv3zveqg2kxfq44lflihh5mm:
     resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -2127,8 +2125,8 @@ packages:
         optional: true
     dependencies:
       eslint: 8.36.0
-      eslint-config-prettier: 8.7.0_eslint@8.36.0
-      prettier: 2.8.4
+      eslint-config-prettier: 8.8.0_eslint@8.36.0
+      prettier: 2.8.7
       prettier-linter-helpers: 1.0.0
     dev: true
 
@@ -3772,8 +3770,8 @@ packages:
     dependencies:
       semver: 7.3.8
 
-  /node-addon-api/5.1.0:
-    resolution: {integrity: sha512-eh0GgfEkpnoWDq+VY8OyvYhFEzBk6jIYbRKdIlyTiAXIVJ8PyBaKb0rp7oDtoddbdoHWhq8wwr+XZ81F1rpNdA==}
+  /node-addon-api/6.0.0:
+    resolution: {integrity: sha512-GyHvgPvUXBvAkXa0YvYnhilSB1A+FRYMpIVggKzPZqdaZfevZOuzfWzyvgzOwRLHBeo/MMswmJFsrNF4Nw1pmA==}
 
   /node-releases/2.0.6:
     resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
@@ -4126,7 +4124,7 @@ packages:
     engines: {node: ^14.15.0 || >=16.0.0, npm: '>=6.14.0'}
     dependencies:
       '@astrojs/compiler': 0.29.5
-      prettier: 2.8.4
+      prettier: 2.8.7
       sass-formatter: 0.7.5
       synckit: 0.8.4
     dev: true
@@ -4136,13 +4134,13 @@ packages:
     engines: {node: ^14.15.0 || >=16.0.0, pnpm: '>=7.14.0'}
     dependencies:
       '@astrojs/compiler': 1.0.1
-      prettier: 2.8.4
+      prettier: 2.8.7
       sass-formatter: 0.7.5
       synckit: 0.8.4
     dev: true
 
-  /prettier/2.8.4:
-    resolution: {integrity: sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==}
+  /prettier/2.8.7:
+    resolution: {integrity: sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
@@ -4640,14 +4638,14 @@ packages:
     resolution: {integrity: sha512-rb+9B5YBIEzYcD6x2VKidaa+cqYBJQKnU4oe4E3ANwRRN56yk/ua1YCJT1n21NTS8w6CcOclAKNP3PhdCXKYtQ==}
     dev: true
 
-  /sharp/0.31.3:
-    resolution: {integrity: sha512-XcR4+FCLBFKw1bdB+GEhnUNXNXvnt0tDo4WsBsraKymuo/IAuPuCBVAL2wIkUw2r/dwFW5Q5+g66Kwl2dgDFVg==}
+  /sharp/0.32.0:
+    resolution: {integrity: sha512-yLAypVcqj1toSAqRSwbs86nEzfyZVDYqjuUX8grhFpeij0DDNagKJXELS/auegDBRDg1XBtELdOGfo2X1cCpeA==}
     engines: {node: '>=14.15.0'}
     requiresBuild: true
     dependencies:
       color: 4.2.3
       detect-libc: 2.0.1
-      node-addon-api: 5.1.0
+      node-addon-api: 6.0.0
       prebuild-install: 7.1.1
       semver: 7.3.8
       simple-get: 4.0.1
