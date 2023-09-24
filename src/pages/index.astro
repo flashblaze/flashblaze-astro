@@ -1,15 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
-import { Image, Picture } from '@astrojs/image/components';
+import { Picture } from 'astro-imagetools/components';
 
 import Main from '../layouts/Main.astro';
 import Icon from '../components/React/Icon';
 import GraphicsCard from '../components/Astro/GraphicsCard.astro';
 import Link from '../components/Astro/Link.astro';
-
-import AffinityImg1 from '../../public/assets/affinity-img-1.jpg';
-import AffinityImg2 from '../../public/assets/affinity-img-2.jpg';
-import BlenderImg1 from '../../public/assets/blender-img-1.jpg';
 
 const posts = await getCollection('posts');
 
@@ -32,7 +28,8 @@ const latestPostDate = date.toUTCString().slice(0, 16);
 >
   <h1 class='font-bold text-3xl'>Neeraj Lagwankar</h1>
   <p class='text-gray-700 dark:text-gray-400'>
-    Developer, amateur photographer and <i><del>professional</del></i> wannabe artist
+    Developer, amateur photographer and <i><del>professional</del></i> wannabe
+    artist
   </p>
   <div class='flex my-3'>
     <Icon name='twitter' />
@@ -62,37 +59,25 @@ const latestPostDate = date.toUTCString().slice(0, 16);
     <div class='flex gap-2 flex-col sm:flex-row'>
       <GraphicsCard href='https://www.instagram.com/p/CgU30DBj8qs/'>
         <Picture
-          src={AffinityImg1}
+          src='/public/assets/affinity-img-1.jpg'
           alt='Black and white image of statue whose face is pixelated and lost identity is written behind it'
-          widths={[500, 700]}
           sizes='(max-width: 420px) 500px, (max-width: 640px) 700px'
-          background='#3F3F3F'
-          width={AffinityImg1.width}
-          height={AffinityImg1.width}
           loading='eager'
         />
       </GraphicsCard>
       <GraphicsCard href='https://www.instagram.com/p/CeJs2trN0yz/'>
         <Picture
-          src={BlenderImg1}
+          src='/public/assets/blender-img-1.jpg'
           alt='Image of a 3D cube in front of 3 glowing spheres'
-          widths={[500, 700]}
           sizes='(max-width: 420px) 500px, (max-width: 640px) 700px'
-          background='#BE0D74'
-          height={BlenderImg1.height}
-          width={BlenderImg1.width}
           loading='eager'
         />
       </GraphicsCard>
       <GraphicsCard href='https://www.instagram.com/p/BqHgzG9n_l_/'>
         <Picture
-          src={AffinityImg2}
+          src='/public/assets/affinity-img-2.jpg'
           alt='Image of a blurred out colourful gradient circle inside a square which is on top of blurred out colourfu; gradient'
-          widths={[500, 700]}
           sizes='(max-width: 420px) 500px, (max-width: 640px) 700px'
-          background='#083FAA'
-          height={AffinityImg2.height}
-          width={AffinityImg2.width}
           loading='eager'
         />
       </GraphicsCard>

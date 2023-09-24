@@ -6,7 +6,7 @@ date: '2020-04-07'
 ---
 
 import Comments from '../../components/React/Comments';
-import { Picture } from '@astrojs/image/components';
+import { Picture } from 'astro-imagetools/components';
 
 This post is my take on displaying real-time post views using Firebase and
 React. This has previously been done by Guillermo Rauch on
@@ -25,83 +25,59 @@ Another reason being, both websites are using [Nextjs](https://nextjs.org/) whil
 1. Sign in to [Firebase](https://firebase.google.com/) and go to [console](https://console.firebase.google.com/) and create a new project. I'll name mine **react-gatsby-views**. You can enable Google Analytics if you want and click on create project
 
 <Picture
-  src='/posts/real-time-post-views/1_console.jpg'
+  src='/public/post-assets/real-time-post-views/1_console.jpg'
   alt='Firebase console'
-  widths={[1920]}
-  sizes='1920px'
-  aspectRatio={1.98}
 />
 
 2. Navigate to Develop -> Database and click on "Create Database"
 3. Choose "Start in Test Mode"
 
 <Picture
-  src='/posts/real-time-post-views/2_database.jpg'
+  src='/public/post-assets/real-time-post-views/2_database.jpg'
   alt='Create databse'
-  widths={[1920]}
-  sizes='1920px'
-  aspectRatio={1.97}
 />
 
 4. Choose your location and click on "Done"
 5. Click on "Project Settings".
 
 <Picture
-  src='/posts/real-time-post-views/3_go_to_project.jpg'
+  src='/public/post-assets/real-time-post-views/3_go_to_project.jpg'
   alt='Go to project'
-  widths={[1920]}
-  sizes='1920px'
-  aspectRatio={5.06}
 />
 
 6. Click on web icon to create a "Web App"
 
 <Picture
-  src='/posts/real-time-post-views/4_settings.jpg'
+  src='/public/post-assets/real-time-post-views/4_settings.jpg'
   alt='Settings'
-  widths={[1094]}
-  sizes='1094px'
-  aspectRatio={4.35}
 />
 
 7. Enter your name. I'll name mine **react-gatsby-views-app**. Do not enable Firebase hosting and click on "Register app"
 
 <Picture
-  src='/posts/real-time-post-views/5_register.jpg'
+  src='/public/post-assets/real-time-post-views/5_register.jpg'
   alt='Register'
-  widths={[1920]}
-  sizes='1920px'
-  aspectRatio={3.45}
 />
 
 8. Click on "Continue to console" as we'll need the config object later
 
 <Picture
-  src='/posts/real-time-post-views/6_continue_to_console.jpg'
+  src='/public/post-assets/real-time-post-views/6_continue_to_console.jpg'
   alt='Continue to console'
-  widths={[1300]}
-  sizes='1300px'
-  aspectRatio={1.75}
 />
 
 9. Go to "Database" and select "Realtime Database"
 
 <Picture
-  src='/posts/real-time-post-views/7_select_realtime.jpg'
+  src='/public/post-assets/real-time-post-views/7_select_realtime.jpg'
   alt='Select realtime'
-  widths={[1920]}
-  sizes='1920px'
-  aspectRatio={7.77}
 />
 
 10. Go to "Rules" and set `read`, `write` to `true` and click on "Publish" allowing us to update data without sigining in and using the config object
 
 <Picture
-  src='/posts/real-time-post-views/8_change_rules.jpg'
+  src='/public/post-assets/real-time-post-views/8_change_rules.jpg'
   alt='Change rules'
-  widths={[1145]}
-  sizes='1145px'
-  aspectRatio={2.03}
 />
 
 <br />
@@ -165,21 +141,15 @@ import 'firebase/database';
 1. Go to your Firebase console and select your web app.
 
 <Picture
-  src='/posts/real-time-post-views/9_web_app.jpg'
+  src='/public/post-assets/real-time-post-views/9_web_app.jpg'
   alt='Web app'
-  widths={[1307]}
-  sizes='1307px'
-  aspectRatio={4.44}
 />
 
 2. Scroll down to Your apps and and copy the `firebaseConfig` object.
 
 <Picture
-  src='/posts/real-time-post-views/10_config.jpg'
+  src='/public/post-assets/real-time-post-views/10_config.jpg'
   alt='Config'
-  widths={[1293]}
-  sizes='1293px'
-  aspectRatio={1.52}
 />
 
 3. Create an `.env` file at the root of your project and paste the content like so
@@ -255,11 +225,8 @@ export default Index;
 2.  Don't worry if you get an error
 
 <Picture
-  src='/posts/real-time-post-views/11_error.jpg'
+  src='/public/post-assets/real-time-post-views/11_error.jpg'
   alt='Error'
-  widths={[1300]}
-  sizes='1300px'
-  aspectRatio={8.84}
 />
 
 we'll create the `ViewCounter` component in just a minute.
@@ -341,21 +308,15 @@ Upon completion, if an instance of database exists, detach it using `off()`
 App Views
 
 <Picture
-  src='/posts/real-time-post-views/12_success.jpg'
+  src='/public/post-assets/real-time-post-views/12_success.jpg'
   alt='Success'
-  widths={[1149]}
-  sizes='1149px'
-  aspectRatio={14.54}
 />
 
 Firebase Views
 
 <Picture
-  src='/posts/real-time-post-views/13_success_fb.jpg'
+  src='/public/post-assets/real-time-post-views/13_success_fb.jpg'
   alt='Success Firebase'
-  widths={[1392]}
-  sizes='1392px'
-  aspectRatio={3.33}
 />
 
 ## Deployment

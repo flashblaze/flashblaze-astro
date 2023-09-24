@@ -10,9 +10,6 @@
     "resolveJsonModule": true,
     // Enable stricter transpilation for better output.
     "isolatedModules": true,
-    "types": [
-      "@astrojs/image/client"
-    ],
     "strictNullChecks": true,
   }
 }
