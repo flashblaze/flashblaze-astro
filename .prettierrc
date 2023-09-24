@@ -1,24 +1,22 @@
 {
-    "printWidth": 80,
-    "tabWidth": 2,
-    "semi": true,
-    "singleQuote": true,
-    "quoteProps": "as-needed",
-    "jsxSingleQuote": true,
-    "trailingComma": "all",
-    "bracketSpacing": true,
-    "arrowParens": "avoid",
-    "endOfLine": "lf",
-    "astroAllowShorthand": true,
-    "plugins": [
-        "./node_modules/prettier-plugin-astro"
-    ],
-    "overrides": [
-        {
-            "files": "*.astro",
-            "options": {
-                "parser": "astro"
-            }
-        }
-    ]
+  "printWidth": 80,
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": true,
+  "quoteProps": "as-needed",
+  "jsxSingleQuote": true,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "arrowParens": "avoid",
+  "endOfLine": "lf",
+  "astroAllowShorthand": true,
+  "plugins": ["prettier-plugin-astro"],
+  "overrides": [
+    {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    }
+  ]
 }

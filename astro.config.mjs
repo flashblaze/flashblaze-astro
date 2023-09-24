@@ -3,10 +3,10 @@ import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import image from '@astrojs/image';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import toc from '@jsdevtools/rehype-toc';
 import remarkSlug from 'remark-slug';
+import { astroImageTools } from "astro-imagetools";
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,6 +18,7 @@ export default defineConfig({
     },
   },
   integrations: [
+    astroImageTools,
     tailwind(),
     mdx({
       remarkPlugins: [remarkSlug],
@@ -37,9 +38,6 @@ export default defineConfig({
     }),
     react(),
     sitemap(),
-    image({
-      serviceEntryPoint: '@astrojs/image/sharp',
-    }),
   ],
   vite: {
     ssr: {

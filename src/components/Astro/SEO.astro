@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 export interface Props {
   docTitle: string;
   docDescription: string;
@@ -46,4 +47,5 @@ const {
   <meta name='twitter:creator' content='@neeraj_artx' />
   <meta name='twitter:title' content={docTitle} />
   <meta name='twitter:description' content={docDescription} />
+  <!-- <ViewTransitions /> -->
 </head>

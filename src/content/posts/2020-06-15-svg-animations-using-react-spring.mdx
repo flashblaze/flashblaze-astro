@@ -7,8 +7,9 @@ date: '2020-06-15'
 
 import ReactPlayer from '../../components/React/ReactPlayer';
 import Comments from '../../components/React/Comments';
-import BasicAnim from '/posts/svg-animations-using-react-spring/4_circle_basic_animation.mp4';
-import AdvancedAnim from '/posts/svg-animations-using-react-spring/5_circle_advanced_animation.mp4';
+import BasicAnim from '/post-assets/svg-animations-using-react-spring/4_circle_basic_animation.mp4';
+import AdvancedAnim from '/post-assets/svg-animations-using-react-spring/5_circle_advanced_animation.mp4';
+import { Picture } from 'astro-imagetools/components';
 
 # Introduction
 
@@ -39,7 +40,10 @@ in terminal to start the React app.
 
 Go to `http://localhost:3000` to view the running app.
 
-![Default React app](/posts/svg-animations-using-react-spring/1_default_react_app.png)
+<Picture
+  src='/public/post-assets/svg-animations-using-react-spring/1_default_react_app.png'
+  alt='Default React app'
+/>
 
 Go to `src` directory and create a new file `Animation.js` which will contain the animation code.
 
@@ -75,8 +79,10 @@ const Animation = () => {
 
 export default Animation;
 ```
-
-![Hello World!](/posts/svg-animations-using-react-spring/2_hello_world.png)
+<Picture
+  src='/public/post-assets/svg-animations-using-react-spring/2_hello_world.png'
+  alt='Hello World!'
+/>
 
 # Animation
 
@@ -112,8 +118,10 @@ const Animation = () => {
 
 export default Animation;
 ```
-
-![SVG Circle](/posts/svg-animations-using-react-spring/3_svg_circle.png)
+<Picture
+  src='/public/post-assets/svg-animations-using-react-spring/3_svg_circle.png'
+  alt='SVG Circle'
+/>
 
 To animate an svg, you need the path length of it. [css-tricks](https://css-tricks.com/svg-line-animation-works/) explains on how to achieve this using HTML, CSS and vanilla JavaScript which I translated to React.
 
