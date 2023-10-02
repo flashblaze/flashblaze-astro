@@ -59,8 +59,7 @@ import Icon from '../React/Icon';
   }
 
   customElements.define('theme-switcher', LightDark);
-
-  {
+  const renderButton = () => {
     const themeButtons = document.querySelectorAll('theme-switcher');
     themeButtons.forEach(button => {
       if (localStorage.getItem('theme') === 'dark') {
@@ -73,11 +72,17 @@ import Icon from '../React/Icon';
         }
       }
     });
-  }
+  };
+
+  renderButton();
+
+  document.addEventListener('astro:after-swap', () => {
+    renderButton();
+  });
 </script>
 
 <script is:inline>
-  const theme = (() => {
+  const theme = () => {
     if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
       return localStorage.getItem('theme');
     }
@@ -87,13 +92,20 @@ import Icon from '../React/Icon';
     }
 
     return 'light';
-  })();
+  };
 
-  if (theme === 'light') {
-    document.documentElement.classList.remove('dark');
-  } else {
-    document.documentElement.classList.add('dark');
-  }
+  const setupTheme = () => {
+    if (theme() === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+    window.localStorage.setItem('theme', theme());
+  };
 
-  window.localStorage.setItem('theme', theme);
+  setupTheme();
+
+  document.addEventListener('astro:after-swap', () => {
+    setupTheme();
+  });
 </script>
