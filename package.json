@@ -13,10 +13,10 @@
     "@astrojs/react": "^3.0.2",
     "@astrojs/sitemap": "^3.0.0",
     "@astrojs/tailwind": "^5.0.0",
-    "@fontsource/jetbrains-mono": "^5.0.12",
+    "@fontsource/jetbrains-mono": "^5.0.13",
     "@fontsource/montserrat": "^5.0.8",
     "@tailwindcss/typography": "^0.5.10",
-    "astro": "^3.1.2",
+    "astro": "^3.2.1",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
@@ -27,7 +27,7 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@codesandbox/sandpack-react": "^2.7.1",
+    "@codesandbox/sandpack-react": "^2.8.0",
     "@codesandbox/sandpack-themes": "^2.0.21",
     "@giscus/react": "^2.3.0",
     "@jsdevtools/rehype-toc": "^3.0.2",
