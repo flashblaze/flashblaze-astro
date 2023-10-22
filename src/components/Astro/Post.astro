@@ -2,9 +2,10 @@
 export interface Props {
   date: string | Date;
   href: string;
+  fullReload?: boolean;
 }
 
-let { date, href } = Astro.props;
+let { date, href, fullReload } = Astro.props;
 date = new Date(date);
 const parsedDate = date.toUTCString().slice(0, 16);
 ---
@@ -13,6 +14,7 @@ const parsedDate = date.toUTCString().slice(0, 16);
   <a
     {href}
     class='font-medium transition ease-in-out dark:hover:text-neutral-500 hover:text-neutral-500'
+    data-astro-reload={fullReload}
   >
     <slot />
   </a>

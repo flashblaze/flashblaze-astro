@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import toc from '@jsdevtools/rehype-toc';
 import remarkSlug from 'remark-slug';
-import { astroImageTools } from "astro-imagetools";
+import { astroImageTools } from 'astro-imagetools';
 
 // https://astro.build/config
 export default defineConfig({
