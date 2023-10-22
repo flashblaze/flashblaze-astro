@@ -5,8 +5,6 @@ import InViewParent from './InViewParent';
 const Comments = () => {
   const theme = useThemeDetector();
 
-  console.log(theme, localStorage.getItem('theme'));
-
   return (
     <InViewParent>
       <Giscus

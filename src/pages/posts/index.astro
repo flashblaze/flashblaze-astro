@@ -12,6 +12,8 @@ const sortedPosts = posts.sort((a, b) => {
 
   return d2.getTime() - d1.getTime();
 });
+
+// Post with integrating-sandpack slug is being navigated with full reload as Sandpack is not working with Astro's view transitions
 ---
 
 <Main
@@ -21,7 +23,11 @@ const sortedPosts = posts.sort((a, b) => {
 >
   {
     sortedPosts.map(post => (
-      <Post date={post.data.date} href={`/posts/${post.slug}`}>
+      <Post
+        date={post.data.date}
+        href={`/posts/${post.slug}`}
+        fullReload={post.slug === 'integrating-sandpack'}
+      >
         {post.data.title}
       </Post>
     ))
