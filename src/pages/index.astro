@@ -86,7 +86,10 @@ const latestPostDate = date.toUTCString().slice(0, 16);
     <div
       class='border-2 border-gray-500 flex flex-col rounded-md p-3 hover:shadow-2xl mb-4'
     >
-      <a href={`/posts/${latestPost.slug}`}>
+      <a
+        href={`/posts/${latestPost.slug}`}
+        data-astro-reload={latestPost.slug === 'integrating-sandpack'}
+      >
         <p class='font-medium'>{latestPost.data.title}</p>
         <p class='text-sm font-semibold text-gray-700 dark:text-gray-400'>
           {latestPostDate}
