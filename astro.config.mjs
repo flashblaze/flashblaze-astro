@@ -50,4 +50,7 @@ export default defineConfig({
       ],
     },
   },
+  experimental: {
+    devOverlay: true,
+  },
 });
