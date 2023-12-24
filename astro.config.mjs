@@ -58,6 +58,8 @@ export default defineConfig({
   vite: {
     ssr: {
       noExternal: [
+        '@fontsource/poppins',
+        '@fontsource-variable/source-code-pro',
         '@codesandbox/sandpack-react',
         '@codesandbox/sandpack-themes',
         '@codesandbox/sandpack-client',
