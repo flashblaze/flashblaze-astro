@@ -7,8 +7,6 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import toc from '@jsdevtools/rehype-toc';
 import remarkSlug from 'remark-slug';
 import { astroImageTools } from 'astro-imagetools';
-import vitesseLightSoft from './vitesse-light-soft.json';
-import vitesseDarkSoft from './vitesse-dark-soft.json';
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,8 +16,8 @@ export default defineConfig({
       // Alternatively, provide multiple themes
       // https://shikiji.netlify.app/guide/dual-themes#light-dark-dual-themes
       experimentalThemes: {
-        light: vitesseLightSoft,
-        dark: vitesseDarkSoft,
+        light: 'rose-pine-dawn',
+        dark: 'material-theme-darker',
       },
       wrap: true,
     },
@@ -32,8 +30,8 @@ export default defineConfig({
         // Alternatively, provide multiple themes
         // https://shikiji.netlify.app/guide/dual-themes#light-dark-dual-themes
         experimentalThemes: {
-          light: vitesseLightSoft,
-          dark: vitesseDarkSoft,
+          light: 'rose-pine-dawn',
+          dark: 'material-theme-darker',
         },
         wrap: true,
       },
