@@ -13,7 +13,12 @@ export default defineConfig({
   site: 'https://flashblaze.xyz',
   markdown: {
     shikiConfig: {
-      theme: 'dracula',
+      // Alternatively, provide multiple themes
+      // https://shikiji.netlify.app/guide/dual-themes#light-dark-dual-themes
+      experimentalThemes: {
+        light: 'rose-pine-dawn',
+        dark: 'material-theme-darker',
+      },
       wrap: true,
     },
   },
@@ -21,6 +26,15 @@ export default defineConfig({
     astroImageTools,
     tailwind(),
     mdx({
+      shikiConfig: {
+        // Alternatively, provide multiple themes
+        // https://shikiji.netlify.app/guide/dual-themes#light-dark-dual-themes
+        experimentalThemes: {
+          light: 'rose-pine-dawn',
+          dark: 'material-theme-darker',
+        },
+        wrap: true,
+      },
       remarkPlugins: [remarkSlug],
       // https://discord.com/channels/830184174198718474/1031501044770943037/1032012597505040425
       rehypePlugins: [
@@ -42,15 +56,12 @@ export default defineConfig({
   vite: {
     ssr: {
       noExternal: [
-        '@fontsource/montserrat',
-        '@fontsource/jetbrains-mono',
+        '@fontsource/poppins',
+        '@fontsource-variable/source-code-pro',
         '@codesandbox/sandpack-react',
         '@codesandbox/sandpack-themes',
         '@codesandbox/sandpack-client',
       ],
     },
-  },
-  experimental: {
-    devOverlay: true,
   },
 });

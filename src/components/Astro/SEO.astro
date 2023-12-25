@@ -1,7 +1,7 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
-import '@fontsource/montserrat';
-import '@fontsource/jetbrains-mono';
+import '@fontsource/poppins';
+import '@fontsource-variable/source-code-pro';
 
 export interface Props {
   docTitle: string;
@@ -50,5 +50,7 @@ const {
   <meta name='twitter:creator' content='@neeraj_artx' />
   <meta name='twitter:title' content={docTitle} />
   <meta name='twitter:description' content={docDescription} />
+  <link rel='me' href='https://fosstodon.org/@flashblaze' />
+  <link rel='me' href='https://mastodon.social/@neeraj_artx' />
   <ViewTransitions />
 </head>
