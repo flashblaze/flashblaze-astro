@@ -7,11 +7,17 @@ export interface Props {
 }
 
 import Main from './Main.astro';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 let { title, date, description, slug } = Astro.props;
 
 date = new Date(date);
-const parsedDate = date.toUTCString().slice(0, 16);
+const parsedDate = dayjs.tz(date, 'Asia/Kolkata').format('ddd, MMM DD YYYY');
 ---
 
 <Main
