@@ -1,8 +1,8 @@
 ---
-title: 'Publishing ESLint rules to npm using PNPM monorepo'
+title: 'Publishing ESLint rules to npm using pnpm monorepo'
 slug: 'publishing-eslint-rules'
-description: 'Walkthrough on how to publish ESLint rules to npm so that they can be reused in multiple projects'
-date: '2023-01-08'
+description: 'Walkthrough on how to publish ESLint rules to npm using pnpm monorepo so that they can be reused in multiple projects'
+date: '2024-01-08'
 ---
 
 ## Background
@@ -39,7 +39,7 @@ auto-install-peers=true
 use-lockfile-v6=true
 ```
 
-Then create a packages directory with all the necessary packages. For now we will be creating 2 packages: `base` and `react`
+Then create a packages directory with all the necessary packages. For now we will be creating 2 packages: `base` and `react`:
 
 ### base
 
@@ -127,7 +127,7 @@ module.exports = {
 
 If you check the `name` field, we're scoping it to an org name.
 
-After installing the packages by running `pnpm i` from the root of the directory, the directory structure is like so:
+After installing the packages by running `pnpm i` from the root of the directory, below is the directory structure:
 
 ```
 node_modules
@@ -141,7 +141,7 @@ pnpm-lock.json
 pnpm-workspace.yaml
 ```
 
-To use the above base into `react` package, we use it like so
+Use the above base into `react` package:
 
 ### react
 
@@ -181,7 +181,7 @@ module.exports = {
 
 In the extends array, put the config at the last so that it overrides the rules. If you have included a plugin in an earlier config, **do not** include it in the `plugins` array else, it will cause issues while linting.
 
-To use `@your-org/eslint-config-base` add it as a dependency. To do so, go into `packages/react` and run `pnpm add @your-org/eslint-config-base`. This will automatically install the package from the workspace and will be shown like so:
+To use `@your-org/eslint-config-base`, add it as a dependency. To do so, go into `packages/react` and run `pnpm add @your-org/eslint-config-base`. This will automatically install the package from the workspace. Below is the `package.json`:
 
 `react/package.json`
 ```json
@@ -209,7 +209,7 @@ To use `@your-org/eslint-config-base` add it as a dependency. To do so, go into 
 }
 ```
 
-Below is the directory structure
+And the updated directory structure:
 
 ```
 node_modules
@@ -221,7 +221,6 @@ packages/
     ├── index.js
     └── package.json
 .npmrc
-.prettierrc
 package.json
 pnpm-lock.json
 pnpm-workspace.yaml
@@ -229,7 +228,7 @@ pnpm-workspace.yaml
 
 ## Using the packages in a project to test it
 
-Now that the configs are created, next step would be to use them in a project and see whether they are working or not. To do so, create a Vite project with React template and link it. You can check the commands [here](https://eslint.org/docs/latest/extend/shareable-configs#publishing-a-shareable-config) or follow the below commands.
+Now that the configs are created, next step would be to use them in a project and see whether they are working or not. To do so, create a Vite project with React template. To link the package, check the commands [here](https://eslint.org/docs/latest/extend/shareable-configs#publishing-a-shareable-config) or follow the below commands.
 
 1. Go into the created project, and run `pnpm add -D <path-to-your-directory>/packages/react` to install it from the packages dir.
 2. Add it to `.eslintrc.js` like so:
