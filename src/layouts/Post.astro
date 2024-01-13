@@ -8,7 +8,8 @@ export interface Props {
 
 import Main from './Main.astro';
 
-let { title, date, description, slug } = Astro.props;
+let { title, date, description } = Astro.props;
+let { slug } = Astro.params;
 
 date = new Date(date);
 const parsedDate = date.toUTCString().slice(0, 16);

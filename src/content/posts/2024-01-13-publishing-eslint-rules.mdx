@@ -1,0 +1,267 @@
+---
+title: 'Publishing ESLint rules to npm using pnpm monorepo'
+slug: 'publishing-eslint-rules'
+description: 'Walkthrough on how to publish ESLint rules to npm using pnpm monorepo so that they can be reused in multiple projects'
+date: '2024-01-13'
+---
+
+## Background
+
+At work (<a href="https://codebuddy.co/" target="_blank">Codebuddy</a>), we wanted to create shareable ESLint rules to be used across the projects instead of copy pasting the rules each time. This can be achieved by following the <a href="https://eslint.org/docs/latest/extend/shareable-configs" target="_blank">Official shareable docs</a>, but I wanted to outline how to achieve the same using a monorepo and also mention some issues which I faced along the way.
+
+## Creating packages
+
+This setup has been inspired by <a href="https://github.com/antfu/eslint-config" target="_blank">antfu's eslint-config</a> where he too has used a monorepo. Let us first begin by creating a <a href="https://pnpm.io/workspaces" target="_blank">pnpm workspace</a> by creating these files
+
+`pnpm-workspace.yaml`
+```yaml
+packages:
+ - "packages/*"
+```
+
+`package.json`
+```json
+{
+  "name": "your-eslint-configs",
+  "version": "1.0.0",
+  "description": "Common ESLint configs",
+  "license": "MIT",
+  "keywords": [
+    "eslint",
+    "eslint-config"
+  ]
+}
+```
+
+`.npmrc`
+```sh
+auto-install-peers=true
+use-lockfile-v6=true
+```
+
+Then create a packages directory with all the necessary packages. For now we will be creating 2 packages: `base` and `react`:
+
+### base
+
+`index.js`
+```js
+module.exports = {
+  env: {
+    es2021: true,
+    browser: true,
+    node: true,
+  },
+  extends: [
+    'eslint:recommended',
+    'airbnb',
+    'plugin:import/recommended',
+    'plugin:promise/recommended',
+    // This disables the formatting rules in ESLint that Prettier is going to be responsible for handling.
+    // Make sure it's always the last config, so it gets the chance to override other configs.
+    'plugin:prettier/recommended',
+    'prettier',
+  ],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  rules: {
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
+    'max-len': 'off',
+    'linebreak-style': ['error', 'unix'],
+    quotes: ['error', 'single', { avoidEscape: true }],
+    semi: ['error', 'always'],
+    'object-curly-newline': 'off',
+    'arrow-parens': 'off',
+    'implicit-arrow-linebreak': 'off',
+    'no-nested-ternary': 'off',
+    'nonblock-statement-body-position': ['error', 'any'],
+    camelcase: 'error',
+    'consistent-return': 0,
+    'no-restricted-syntax': 'off',
+    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'arrow-body-style': ['error', 'as-needed'],
+    'no-unused-vars': [
+      'error',
+      {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_',
+      },
+    ],
+    'no-shadow': 'error',
+    'no-underscore-dangle': 'off',
+  },
+};
+```
+
+`package.json`
+```json
+{
+  "name": "@your-org/eslint-config-base",
+  "version": "1.0.0",
+  "description": "Common JS ESLint rules",
+  "license": "MIT",
+  "main": "index.js",
+  "keywords": [
+    "eslint",
+    "eslint-config"
+  ],
+  "peerDependencies": {
+    "eslint": ">=8",
+    "eslint-config-airbnb": ">=19.0.4",
+    "eslint-plugin-import": ">=2.29.1",
+    "eslint-plugin-prettier": ">=5.1.2",
+    "eslint-plugin-promise": ">=6.1.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
+```
+
+If you check the `name` field, we're scoping it to an org name.
+
+After installing the packages by running `pnpm i` from the root of the directory, below is the directory structure:
+
+```
+node_modules
+packages/
+└── base/
+    ├── index.js
+    └── package.json
+.npmrc
+package.json
+pnpm-lock.json
+pnpm-workspace.yaml
+```
+
+Use the above base into `react` package:
+
+### react
+
+`index.js`
+```js
+module.exports = {
+  extends: [
+    'plugin:react/recommended',
+    'plugin:jsx-a11y/recommended',
+    '@your-org/eslint-config-base',
+  ],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: ['react'],
+  rules: {
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
+      },
+    ],
+    'react/prop-types': 'off',
+    'react/no-unstable-nested-components': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/require-default-props': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'import/no-extraneous-dependencies': ['error', { devDependencies: ['vite.config.js'] }],
+  },
+};
+```
+
+In the extends array, put the config at the last so that it overrides the rules. If you have included a plugin in an earlier config, **do not** include it in the `plugins` array else, it will cause issues while linting.
+
+To use `@your-org/eslint-config-base`, add it as a dependency. To do so, go into `packages/react` and run `pnpm add @your-org/eslint-config-base`. This will automatically install the package from the workspace. Below is the `package.json`:
+
+`react/package.json`
+```json
+{
+  "name": "@your-org/eslint-config-react",
+  "version": "1.0.0",
+  "description": "Common ESLint rules for React with Vite",
+  "license": "MIT",
+  "main": "index.js",
+  "keywords": [
+    "eslint",
+    "eslint-config"
+  ],
+  "peerDependencies": {
+    "eslint": ">=8",
+    "eslint-plugin-jsx-a11y": ">=6.8.0",
+    "eslint-plugin-react": ">=7.33.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@your-org/eslint-config-base": "workspace:^"    
+  }
+}
+```
+
+And the updated directory structure:
+
+```
+node_modules
+packages/
+├── base/
+│   ├── index.js
+│   └── package.json
+└── react/
+    ├── index.js
+    └── package.json
+.npmrc
+package.json
+pnpm-lock.json
+pnpm-workspace.yaml
+```
+
+## Using the packages in a project to test it
+
+Now that the configs are created, next step would be to use them in a project and see whether they are working or not. To do so, create a Vite project with React template. To link the package, check the commands [here](https://eslint.org/docs/latest/extend/shareable-configs#publishing-a-shareable-config) or follow the below commands.
+
+1. Go into the created project, and run `pnpm add -D <path-to-your-directory>/packages/react` to install it from the packages dir.
+2. Add it to `.eslintrc.js` like so:
+
+`.eslintrc.js`
+```js
+module.exports = {
+  extends: ['@your-org/eslint-config-react'],
+};
+```
+
+## Publishing the packages
+
+To publish the packages, go into each package and run `pnpm publish --access public .` If everything is set up correctly, then it will be published 🥳. Below are some issues which I faced while publishing. Do check if you run into any of the issues
+
+I tried running `npm adduser` and `npm login`, however I got these errors
+```sh
+> npm login
+npm notice Log in on https://registry.npmjs.org/
+Login at:
+https://www.npmjs.com/login?next=/login/cli/c2db3009-70e8-41ea-9194-04abd03d7c5c
+Press ENTER to open in the browser...
+npm ERR! code ERR_INVALID_ARG_TYPE
+npm ERR! The "file" argument must be of type string. Received undefined
+npm ERR! Cannot read properties of undefined (reading 'stdin')
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/neeraj/.npm/_logs/2023-12-11T16_39_39_060Z-debug-0.log
+```
+
+Fortunately I found this [Solution](https://stackoverflow.com/a/77126674). Check if `.npmrc` exists if it exsist, then add the below line to it else create it and add the below line to it:
+```sh
+//registry.npmjs.org/:_authToken=token_here
+```
+
+If you want to see how Codebuddy has implemented the same for Next.js and TypeScript, do check it out on <a href="https://github.com/codebuddy-pvt-ltd/eslint-configs" target="_blank">GitHub</a>
