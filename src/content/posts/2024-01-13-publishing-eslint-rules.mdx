@@ -5,6 +5,8 @@ description: 'Walkthrough on how to publish ESLint rules to npm using pnpm monor
 date: '2024-01-13'
 ---
 
+import Comments from '../../components/React/Comments';
+
 ## Background
 
 At work (<a href="https://codebuddy.co/" target="_blank">Codebuddy</a>), we wanted to create shareable ESLint rules to be used across the projects instead of copy pasting the rules each time. This can be achieved by following the <a href="https://eslint.org/docs/latest/extend/shareable-configs" target="_blank">Official shareable docs</a>, but I wanted to outline how to achieve the same using a monorepo and also mention some issues which I faced along the way.
@@ -265,3 +267,5 @@ Fortunately I found this [Solution](https://stackoverflow.com/a/77126674). Check
 ```
 
 If you want to see how Codebuddy has implemented the same for Next.js and TypeScript, do check it out on <a href="https://github.com/codebuddy-pvt-ltd/eslint-configs" target="_blank">GitHub</a>
+
+<Comments client:only='react' />
