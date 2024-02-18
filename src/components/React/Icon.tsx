@@ -6,8 +6,8 @@ import {
   SiGumroad,
   SiYoutube,
   SiUnsplash,
-} from 'react-icons/si/index';
-import { TbSun, TbMoonStars } from 'react-icons/tb/index';
+} from 'react-icons/si';
+import { TbSun, TbMoonStars } from 'react-icons/tb';
 
 const Icon = ({ name }) => {
   const renderContent = () => {
