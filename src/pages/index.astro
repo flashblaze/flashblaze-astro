@@ -1,11 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
-import { Picture } from 'astro-imagetools/components';
+import { Picture } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 
 import Main from '../layouts/Main.astro';
-import Icon from '../components/React/Icon';
 import GraphicsCard from '../components/Astro/GraphicsCard.astro';
 import Link from '../components/Astro/Link.astro';
+
+import Image1 from '../../public/affinity-img-1.jpg'
+import Image2 from '../../public/affinity-img-2.jpg'
+import Image3 from '../../public/blender-img-1.jpg'
 
 const posts = await getCollection('posts');
 
@@ -28,17 +32,45 @@ const latestPostDate = date.toUTCString().slice(0, 16);
 >
   <h1 class='font-bold text-3xl'>Neeraj Lagwankar</h1>
   <p class='text-gray-700 dark:text-gray-400'>
-    Developer, amateur photographer and <i><del>professional</del></i> wannabe
-    artist
+    Developer, amateur photographer and <i><del>professional</del></i> wannabe artist
   </p>
-  <div class='flex my-3'>
-    <Icon name='twitter' />
-    <Icon name='github' />
-    <Icon name='instagram' />
-    <Icon name='linkedin' />
-    <Icon name='gumroad' />
-    <Icon name='youtube' />
-    <Icon name='unsplash' />
+  <div class='flex my-3 gap-5'>
+    <a target='_blank' href='https://twitter.com/neeraj_artx'>
+      <Icon
+        name='mdi:twitter'
+        class='text-blue-400 w-7 h-7'
+        title='Twitter'
+      />
+    </a>
+    <a target='_blank' href='https://github.com/flashblaze'>
+      <Icon
+        name='mdi:github'
+        class='dark:text-white text-black w-7 h-7'
+        title='Twitter'
+      />
+    </a>
+    <a target='_blank' href='https://instagram.com/neeraj_artx'>
+      <Icon name='mdi:instagram' class='text-rose-500 w-7 h-7' title='Instagram' />
+    </a>
+    <a target='_blank' href='https://www.linkedin.com/in/neeraj-lagwankar/'>
+      <Icon name='mdi:linkedin' class='text-blue-500 w-7 h-7' title='LinkedIn' />
+    </a>
+    <a target='_blank' href='https://neeraj-artx.gumroad.com/'>
+      <Icon name='mingcute:gumroad-line' class='text-pink-400 w-7 h-7' title='Gumroad' />
+    </a>
+    <a
+      target='_blank'
+      href='https://www.youtube.com/channel/UCQKfDFA1cCAB1Oq5B6Vr7ew'
+    >
+      <Icon name='mdi:youtube' class='text-red-500 w-7 h-7' title='YouTube' />
+    </a>
+    <a target='_blank' href='https://unsplash.com/@neeraj_artx/'>
+      <Icon
+        name='ri:unsplash-fill'
+        class='dark:text-slate-200 text-black w-7 h-7'
+        title='Unsplash'
+      />
+    </a>
   </div>
   <hr class='mt-2 mb-4' />
   <div class='flex flex-col'>
@@ -59,26 +91,26 @@ const latestPostDate = date.toUTCString().slice(0, 16);
     <div class='flex gap-2 flex-col sm:flex-row'>
       <GraphicsCard href='https://www.instagram.com/p/CgU30DBj8qs/'>
         <Picture
-          src='/public/assets/affinity-img-1.jpg'
+          src={Image1}
           alt='Black and white statue whose face is pixelated and lost identity is written behind it'
-          sizes='(max-width: 420px) 500px, (max-width: 640px) 700px'
           loading='eager'
+          formats={['avif', 'webp']}
         />
       </GraphicsCard>
       <GraphicsCard href='https://www.instagram.com/p/CeJs2trN0yz/'>
         <Picture
-          src='/public/assets/blender-img-1.jpg'
+          src={Image2}
           alt='3D cube in front of 3 glowing spheres'
-          sizes='(max-width: 420px) 500px, (max-width: 640px) 700px'
           loading='eager'
+          formats={['avif', 'webp']}
         />
       </GraphicsCard>
       <GraphicsCard href='https://www.instagram.com/p/BqHgzG9n_l_/'>
         <Picture
-          src='/public/assets/affinity-img-2.jpg'
+          src={Image3}
           alt='Blurred out colourful gradient circle inside a square which is on top of blurred out colourfu; gradient'
-          sizes='(max-width: 420px) 500px, (max-width: 640px) 700px'
           loading='eager'
+          formats={['avif', 'webp']}
         />
       </GraphicsCard>
     </div>

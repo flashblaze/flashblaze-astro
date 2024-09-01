@@ -1,3 +1,5 @@
+import defaultTheme from 'tailwindcss/defaultTheme'
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{astro,html,js,jsx,mdx,svelte,ts,tsx,vue}'],
@@ -5,8 +7,8 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      sans: ['Poppins', 'sans-serif'],
-      mono: ['Source Code Pro', 'monospace'],
+      sans: ['Poppins', 'sans-serif', ...defaultTheme.fontFamily.sans],
+      mono: ['JetBrains Mono Variable', 'monospace', ...defaultTheme.fontFamily.mono],
     },
   },
   plugins: [require('@tailwindcss/typography')],
