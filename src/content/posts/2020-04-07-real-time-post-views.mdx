@@ -6,7 +6,20 @@ date: '2020-04-07'
 ---
 
 import Comments from '../../components/React/Comments';
-import { Picture } from 'astro-imagetools/components';
+import { Picture } from 'astro:assets';
+import Image1 from '../../../public/post-assets/real-time-post-views/1_console.jpg';
+import Image2 from '../../../public/post-assets/real-time-post-views/2_database.jpg';
+import Image3 from '../../../public/post-assets/real-time-post-views/3_go_to_project.jpg';
+import Image4 from '../../../public/post-assets/real-time-post-views/4_settings.jpg';
+import Image5 from '../../../public/post-assets/real-time-post-views/5_register.jpg';
+import Image6 from '../../../public/post-assets/real-time-post-views/6_continue_to_console.jpg';
+import Image7 from '../../../public/post-assets/real-time-post-views/7_select_realtime.jpg';
+import Image8 from '../../../public/post-assets/real-time-post-views/8_change_rules.jpg';
+import Image9 from '../../../public/post-assets/real-time-post-views/9_web_app.jpg';
+import Image10 from '../../../public/post-assets/real-time-post-views/10_config.jpg';
+import Image11 from '../../../public/post-assets/real-time-post-views/11_error.jpg';
+import Image12 from '../../../public/post-assets/real-time-post-views/12_success.jpg';
+import Image13 from '../../../public/post-assets/real-time-post-views/13_success_fb.jpg';
 
 This post is my take on displaying real-time post views using Firebase and
 React. This has previously been done by Guillermo Rauch on
@@ -25,7 +38,7 @@ Another reason being, both websites are using [Nextjs](https://nextjs.org/) whil
 1. Sign in to [Firebase](https://firebase.google.com/) and go to [console](https://console.firebase.google.com/) and create a new project. I'll name mine **react-gatsby-views**. You can enable Google Analytics if you want and click on create project
 
 <Picture
-  src='/public/post-assets/real-time-post-views/1_console.jpg'
+  src={Image1}
   alt='Firebase console'
 />
 
@@ -33,7 +46,7 @@ Another reason being, both websites are using [Nextjs](https://nextjs.org/) whil
 3. Choose "Start in Test Mode"
 
 <Picture
-  src='/public/post-assets/real-time-post-views/2_database.jpg'
+  src={Image2}
   alt='Create databse'
 />
 
@@ -41,42 +54,42 @@ Another reason being, both websites are using [Nextjs](https://nextjs.org/) whil
 5. Click on "Project Settings".
 
 <Picture
-  src='/public/post-assets/real-time-post-views/3_go_to_project.jpg'
+  src={Image3}
   alt='Go to project'
 />
 
 6. Click on web icon to create a "Web App"
 
 <Picture
-  src='/public/post-assets/real-time-post-views/4_settings.jpg'
+  src={Image4}
   alt='Settings'
 />
 
 7. Enter your name. I'll name mine **react-gatsby-views-app**. Do not enable Firebase hosting and click on "Register app"
 
 <Picture
-  src='/public/post-assets/real-time-post-views/5_register.jpg'
+  src={Image5}
   alt='Register'
 />
 
 8. Click on "Continue to console" as we'll need the config object later
 
 <Picture
-  src='/public/post-assets/real-time-post-views/6_continue_to_console.jpg'
+  src={Image6}
   alt='Continue to console'
 />
 
 9. Go to "Database" and select "Realtime Database"
 
 <Picture
-  src='/public/post-assets/real-time-post-views/7_select_realtime.jpg'
+  src={Image7}
   alt='Select realtime'
 />
 
 10. Go to "Rules" and set `read`, `write` to `true` and click on "Publish" allowing us to update data without sigining in and using the config object
 
 <Picture
-  src='/public/post-assets/real-time-post-views/8_change_rules.jpg'
+  src={Image8}
   alt='Change rules'
 />
 
@@ -141,14 +154,14 @@ import 'firebase/database';
 1. Go to your Firebase console and select your web app.
 
 <Picture
-  src='/public/post-assets/real-time-post-views/9_web_app.jpg'
+  src={Image9}
   alt='Web app'
 />
 
 2. Scroll down to Your apps and and copy the `firebaseConfig` object.
 
 <Picture
-  src='/public/post-assets/real-time-post-views/10_config.jpg'
+  src={Image10}
   alt='Config'
 />
 
@@ -225,7 +238,7 @@ export default Index;
 2.  Don't worry if you get an error
 
 <Picture
-  src='/public/post-assets/real-time-post-views/11_error.jpg'
+  src={Image11}
   alt='Error'
 />
 
@@ -308,14 +321,14 @@ Upon completion, if an instance of database exists, detach it using `off()`
 App Views
 
 <Picture
-  src='/public/post-assets/real-time-post-views/12_success.jpg'
+  src={Image12}
   alt='Success'
 />
 
 Firebase Views
 
 <Picture
-  src='/public/post-assets/real-time-post-views/13_success_fb.jpg'
+  src={Image13}
   alt='Success Firebase'
 />
 

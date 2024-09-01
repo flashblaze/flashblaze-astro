@@ -7,7 +7,11 @@ date: '2022-11-25'
 
 import Comments from '../../components/React/Comments';
 import ReactPlayer from '../../components/React/ReactPlayer';
-import { Picture } from 'astro-imagetools/components';
+import { Picture } from 'astro:assets';
+import Image1 from '../../../public/post-assets/gatsby-to-astro/1_gatsby_vercel_build_times.jpg'
+import Image2 from '../../../public/post-assets/gatsby-to-astro/2_astro_announcement.jpg'
+import Image3 from '../../../public/post-assets/gatsby-to-astro/3_redesigned_website.jpg'
+import Image4 from '../../../public/post-assets/gatsby-to-astro/4_astro_vercel_build_times.jpg'
 
 ## Background
 
@@ -135,7 +139,7 @@ After approximately 3-4 months I again looked at the plugins and oh boy were thi
 After spending countless hours and making no significant progress with it, I saw no point in spending more time on it. Add to that the enormous build times on my local machine (I had to build locally a few times due to it being a SSG framework and I wanted to see whether it would break on Vercel or not as it had happened a few times before), as well as on Vercel I just let it be.
 
 <Picture
-  src='/public/post-assets/gatsby-to-astro/1_gatsby_vercel_build_times.jpg'
+  src={Image1}
   alt='Gatsbyjs build times on Vercel'
 />
 
@@ -146,14 +150,14 @@ During all this time another JS framework was being developed called [Astro](htt
 I was beyond impressed with these features and I was keeping a close eye on when Astro will ship **v1.0**. And it was released on [9th Aug 2022](https://astro.build/blog/astro-1/).
 
 <Picture
-  src='/post-assets/gatsby-to-astro/2_astro_announcement.jpg'
+  src={Image2}
   alt='Astro v1.0 announcement post'
 />
 
 Since I was developing my website from scratch I discarded the old design and redesigned it to make it look decent with minimal JS. And so I pushed my 1st commit on [14th Aug 2022](https://github.com/flashblaze/flashblaze-astro/commit/269464fd165c49f3b317b1a293381bb94c0f5e15)
 
 <Picture
-  src='/post-assets/gatsby-to-astro/3_redesigned_website.jpg'
+  src={Image3}
   alt='Redesigned website'
 />
 
@@ -215,7 +219,7 @@ Here is my `package.json`. As you can see, it is pretty minimal as opposed to th
 The build times also improved by quite a margin.
 
 <Picture
-  src='/post-assets/gatsby-to-astro/4_astro_vercel_build_times.jpg'
+  src={Image4}
   alt='Redesigned website'
 />
 

@@ -1,16 +1,17 @@
 ---
-import Icon from '../React/Icon';
+import { Icon } from 'astro-icon/components';
+
 ---
 
 <theme-switcher class='light-theme hidden'>
   <button class='light-theme-button'>
-    <Icon name='sun' />
+    <Icon name='ph:sun' class='dark:text-yellow-300 w-6 h-6'/>
   </button>
 </theme-switcher>
 
 <theme-switcher class='dark-theme hidden'>
   <button class='dark-theme-button'>
-    <Icon name='moon' />
+    <Icon name='ph:moon' class='text-sky-500 w-6 h-6' />
   </button>
 </theme-switcher>
 
