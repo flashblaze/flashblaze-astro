@@ -7,6 +7,10 @@ import Main from '../layouts/Main.astro';
 import GraphicsCard from '../components/Astro/GraphicsCard.astro';
 import Link from '../components/Astro/Link.astro';
 
+import Image1 from '../../public/affinity-img-1.jpg'
+import Image2 from '../../public/affinity-img-2.jpg'
+import Image3 from '../../public/blender-img-1.jpg'
+
 const posts = await getCollection('posts');
 
 const sortedPosts = posts.sort((a, b) => {
@@ -87,29 +91,26 @@ const latestPostDate = date.toUTCString().slice(0, 16);
     <div class='flex gap-2 flex-col sm:flex-row'>
       <GraphicsCard href='https://www.instagram.com/p/CgU30DBj8qs/'>
         <Picture
-          src='/affinity-img-1.jpg'
+          src={Image1}
           alt='Black and white statue whose face is pixelated and lost identity is written behind it'
-          width={700}
-          height={700}
           loading='eager'
+          formats={['avif', 'webp']}
         />
       </GraphicsCard>
       <GraphicsCard href='https://www.instagram.com/p/CeJs2trN0yz/'>
         <Picture
-          src='/blender-img-1.jpg'
+          src={Image2}
           alt='3D cube in front of 3 glowing spheres'
-          width={700}
-          height={700}
           loading='eager'
+          formats={['avif', 'webp']}
         />
       </GraphicsCard>
       <GraphicsCard href='https://www.instagram.com/p/BqHgzG9n_l_/'>
         <Picture
-          src='/affinity-img-2.jpg'
+          src={Image3}
           alt='Blurred out colourful gradient circle inside a square which is on top of blurred out colourfu; gradient'
-          width={700}
-          height={700}
           loading='eager'
+          formats={['avif', 'webp']}
         />
       </GraphicsCard>
     </div>
