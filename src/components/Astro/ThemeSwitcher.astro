@@ -4,13 +4,13 @@ import { Icon } from 'astro-icon/components';
 ---
 
 <theme-switcher class='light-theme hidden'>
-  <button class='light-theme-button'>
+  <button class='light-theme-button' aria-label="Light theme">
     <Icon name='ph:sun' class='dark:text-yellow-300 w-6 h-6'/>
   </button>
 </theme-switcher>
 
 <theme-switcher class='dark-theme hidden'>
-  <button class='dark-theme-button'>
+  <button class='dark-theme-button' aria-label="Dark theme">
     <Icon name='ph:moon' class='text-sky-500 w-6 h-6' />
   </button>
 </theme-switcher>
