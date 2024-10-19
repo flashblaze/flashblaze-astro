@@ -1,0 +1,188 @@
+---
+title: 'Deploying my Astro + Turso + Drizzle project to Cloudflare Pages'
+slug: 'deploying-astro-turso-drizzle-to-cloudflare-pages'
+description: 'Walkthrough on how to deploy an Astro + Turso + Drizzle project to Cloudflare Pages'
+date: '2024-10-20'
+---
+
+import { Icon } from 'astro-icon/components';
+import Comments from '../../components/React/Comments';
+
+# Background
+
+I wanted to build a project which utilized map in some way using [deck.gl](https://deck.gl/). So I thought what better way than to visualize the users who are visiting the project itself. I knew I would need visitor's location (rough/accurate it did not matter to me that much) and I was aware that Cloudflare allows you to enable [location headers](https://developers.cloudflare.com/rules/transform/managed-transforms/reference/#add-visitor-location-headers) from which I could extract the data which I wanted.
+
+This post won't go into detail of the project itself as such. Rather the issues and the flow itself for deploying the app. Below are the links to the project and the repository.
+
+<div class='flex items-center gap-2'>
+  <Icon
+    name='mdi:map'
+    class='text-orange-300 w-5 h-5'
+    title='Website'
+  />
+  <a href='https://map.flashblaze.dev/' target='_blank'>
+    MapViz
+  </a>
+</div>
+
+<div class='flex items-center gap-2'>
+  <Icon
+    name='mdi:github'
+    class='dark:text-white text-black w-5 h-5'
+    title='GitHub'
+  />
+  <a href='https://github.com/flashblaze/map' target='_blank'>
+    flashblaze/map-viz
+  </a>
+</div>
+
+# Tech stack
+
+1. I knew I wanted a fullstack framework to access the headers from the app itself. As such, I went with [Astro](https://astro.build/) since I was familiar with it and the docs also explain in great detail on how to deploy Astro site on Cloudflare Pages.
+2. For rendering the map, I went with [Preact](https://preactjs.com/) and [deck.gl](https://deck.gl/).
+3. For storing the location data, I could have gone with Cloudflare's own D1, but I went with [Turso](https://turso.tech) and [drizzle ORM](https://orm.drizzle.team/) as my ORM.
+
+# Skill issue
+
+## drizzle-kit: `import.meta` is not available
+
+This was my `drizzle.config.ts` and after running the `drizzle-kit generate` command I ran into this this error: `"import.meta" is not available with the "cjs" output format and will be empty`
+
+```ts
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  schema: "./src/db/schema.ts",
+  out: "./migrations",
+  dialect: "turso",
+  dbCredentials: {
+    url: import.meta.env.TURSO_CONNECTION_URL ?? "",
+    authToken: import.meta.env.TURSO_AUTH_TOKEN ?? "",
+  },
+});
+```
+
+Based on the error message, it felt like it needs the environment variables using `process.env` format. As such I had to update the config like so:
+
+```ts
+import { defineConfig } from "drizzle-kit";
+import { config } from "dotenv";
+
+// drizzle-kit does not support import.meta.env, so we need to load the .env file manually.
+config({ path: "../.env" });
+
+export default defineConfig({
+  schema: "./src/db/schema.ts",
+  out: "./migrations",
+  dialect: "turso",
+  dbCredentials: {
+    url: process.env.TURSO_CONNECTION_URL ?? "",
+    authToken: process.env.TURSO_AUTH_TOKEN ?? "",
+  },
+});
+```
+which fixed the issue.
+
+## Using drizzle with Astro
+
+To use drizzle with Astro, I had to export a function in which I was passing the environment variables to the drizzle config. These are the files in question:
+
+`src/db/index.ts`
+```ts
+import { drizzle } from "drizzle-orm/libsql";
+import { createClient } from "@libsql/client";
+
+export function createDB(env: App.Locals["env"]) {
+  const client = createClient({
+    url: env.TURSO_CONNECTION_URL,
+    authToken: env.TURSO_AUTH_TOKEN,
+  });
+
+  return drizzle(client);
+}
+```
+
+`src/env.d.ts`
+```ts
+/// <reference path="../.astro/types.d.ts" />
+
+type Runtime = import("@astrojs/cloudflare").Runtime<Env>;
+
+declare namespace App {
+  interface Locals extends Runtime {
+    env: {
+      TURSO_CONNECTION_URL: string;
+      TURSO_AUTH_TOKEN: string;
+    };
+  }
+}
+
+interface ImportMetaEnv {
+  readonly TURSO_CONNECTION_URL: string;
+  readonly TURSO_AUTH_TOKEN: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+```
+
+`src/pages/index.astro`
+```astro
+---
+import { createDB } from "../db";
+
+const db = createDB(Astro.locals.env);
+---
+```
+
+## Preact compat was not working as expected with deck.gl
+
+I followed the [docs](https://docs.astro.build/en/guides/integrations-guide/preact/#installation) and installed the integration using `pnpm astro add preact` command. Docs also suggested on adding overrides for compat [here](https://docs.astro.build/en/guides/integrations-guide/preact/#compat). I followed the `pnpm` related docs and added this to my `package.json`
+
+```json
+  "pnpm": {
+    "overrides": {
+        "react": "npm:@preact/compat@latest",
+        "react-dom": "npm:@preact/compat@latest"
+    }
+  }
+```
+
+However, I ran into these errors
+
+```sh
+WARN Issues with peer dependencies found
+.
+├─┬ deck.gl 9.0.33
+│ ├── ✕ missing peer react@npm:@preact/compat@latest
+│ ├── ✕ missing peer react-dom@npm:@preact/compat@latest
+│ └─┬ @deck.gl/react 9.0.33
+│   ├── ✕ missing peer react@npm:@preact/compat@latest
+│   └── ✕ missing peer react-dom@npm:@preact/compat@latest
+├─┬ drizzle-orm 0.34.1
+│ └── ✕ missing peer react@npm:@preact/compat@latest
+└─┬ react-map-gl 7.1.7
+  ├── ✕ missing peer react@npm:@preact/compat@latest
+  └── ✕ missing peer react-dom@npm:@preact/compat@latest
+✕ Conflicting peer dependencies:
+  react      react-dom  
+```
+
+I even tried installing `react` and `react-dom` which felt unnecessary but wanted to try it nonetheless. Still the issue persisted.
+
+So what was the solution?
+
+Removing the overrides altogether.
+
+## It builds on my machine but not on Cloudflare via GitHub 😔
+
+Try as I may, if I deploy my app using `wrangler deploy` it used to work, however as soon as I was pushing anything to GitHub, the build used to fail. Reading through the logs and searching, I figured out that Cloudflare was building my app using **Node v18** and **pnpm v8** while I was using **Node v20** and **pnpm v9**.
+
+Setting `NODE_VERSION` to `20.17.0` and `PNPM_VERSION` to `9.9.0` under [Variables and Secrets](https://developers.cloudflare.com/workers/configuration/environment-variables/#add-environment-variables-via-the-dashboard) in the dashboard fixed the build issue.
+
+## The website takes too long to load
+
+As of this writing, the website takes about 10 seconds to load when loaded for the first time. I think this is due to the cold start of the Turso DB. I have yet to find a solution to this and I am in the process of migrating to [Cloudflare D1](https://developers.cloudflare.com/d1/). I will update this section once I have migrated and tested the app again along with the challenges faced during migration as well lol.
+
+<Comments client:only='react' />

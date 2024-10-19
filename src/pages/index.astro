@@ -7,9 +7,9 @@ import Main from '../layouts/Main.astro';
 import GraphicsCard from '../components/Astro/GraphicsCard.astro';
 import Link from '../components/Astro/Link.astro';
 
-import Image1 from '../../public/affinity-img-1.jpg'
-import Image2 from '../../public/affinity-img-2.jpg'
-import Image3 from '../../public/blender-img-1.jpg'
+import Image1 from '../../public/affinity-img-1.jpg';
+import Image2 from '../../public/affinity-img-2.jpg';
+import Image3 from '../../public/blender-img-1.jpg';
 
 const posts = await getCollection('posts');
 
@@ -36,11 +36,7 @@ const latestPostDate = date.toUTCString().slice(0, 16);
   </p>
   <div class='flex my-3 gap-5'>
     <a target='_blank' href='https://twitter.com/neeraj_artx'>
-      <Icon
-        name='mdi:twitter'
-        class='text-blue-400 w-7 h-7'
-        title='Twitter'
-      />
+      <Icon name='mdi:twitter' class='text-blue-400 w-7 h-7' title='Twitter' />
     </a>
     <a target='_blank' href='https://github.com/flashblaze'>
       <Icon
@@ -50,13 +46,18 @@ const latestPostDate = date.toUTCString().slice(0, 16);
       />
     </a>
     <a target='_blank' href='https://instagram.com/neeraj_artx'>
-      <Icon name='mdi:instagram' class='text-rose-500 w-7 h-7' title='Instagram' />
+      <Icon
+        name='mdi:instagram'
+        class='text-rose-500 w-7 h-7'
+        title='Instagram'
+      />
     </a>
     <a target='_blank' href='https://www.linkedin.com/in/neeraj-lagwankar/'>
-      <Icon name='mdi:linkedin' class='text-blue-500 w-7 h-7' title='LinkedIn' />
-    </a>
-    <a target='_blank' href='https://neeraj-artx.gumroad.com/'>
-      <Icon name='mingcute:gumroad-line' class='text-pink-400 w-7 h-7' title='Gumroad' />
+      <Icon
+        name='mdi:linkedin'
+        class='text-blue-500 w-7 h-7'
+        title='LinkedIn'
+      />
     </a>
     <a
       target='_blank'
