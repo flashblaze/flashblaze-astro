@@ -177,13 +177,13 @@ Removing the overrides altogether.
 
 ## It builds on my machine but not on Cloudflare via GitHub 😔
 
-Try as I may, if I deploy my app using `wrangler deploy` it used to work, however as soon as I was pushing anything to GitHub, the build used to fail. Reading through the logs and searching, I figured out that Cloudflare was building my app using **Node v18** and **pnpm v8** while I was using **Node v20** and **pnpm v9**.
+Try as I may, if I deploy my app using `wrangler deploy` it used to work, however as soon as I was pushing anything to GitHub, the build used to fail. Reading through the logs and searching online, I figured out that Cloudflare was building my app using **Node v18** and **pnpm v8** while I was using **Node v20** and **pnpm v9**.
 
 Setting `NODE_VERSION` to `20.17.0` and `PNPM_VERSION` to `9.9.0` under [Variables and Secrets](https://developers.cloudflare.com/workers/configuration/environment-variables/#add-environment-variables-via-the-dashboard) in the dashboard fixed the build issue.
 
 ## The website takes too long to load
 
-As of this writing, the website takes about 10 seconds to load when loaded for the first time. I think this is due to the cold start of the Turso DB. I have yet to find a solution to this though 🥲. One solution is to keep the DB "hot" by making API calls at a certain intervals which I don't plan on doing.
+As of this writing, the website takes about 10 seconds to load when loaded for the first time. I think this is due to the cold start of the Turso DB.  One solution is to keep the DB "hot" by making API calls at certain intervals which I don't plan on doing. So I have yet to find an actual solution for this 🥲.
 
 # What's next?
 
@@ -211,6 +211,6 @@ Right now, I'm in the process of migrating to [Cloudflare D1](https://developers
   </a>
 </div>
 
-I will update this section once I have completely migrated and tested the app along with the challenges faced during migration as well, lol. I also need to work on a good CI/CD pipeline using Github Actions since the migrations are currently being run manually.
+I will update this section once I have completely migrated and tested the app along with the challenges faced during migration as well, lol. I also need to work on a good CI/CD pipeline using GitHub Actions since the migrations are currently being run manually.
 
 <Comments client:only='react' />
