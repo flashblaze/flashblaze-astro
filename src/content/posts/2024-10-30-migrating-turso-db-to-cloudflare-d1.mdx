@@ -1,0 +1,163 @@
+---
+title: 'Migrating my Turso DB to Cloudflare D1'
+slug: 'migrating-turso-db-to-cloudflare-d1'
+description: 'Walkthrough on how to migrate a Turso DB to Cloudflare D1'
+date: '2024-10-30'
+---
+
+import { Icon } from 'astro-icon/components';
+import Comments from '../../components/React/Comments';
+
+
+*Checkout the previous post on [How I deployed my Astro + Turso + Drizzle project to Cloudflare Pages](/posts/deploying-astro-turso-drizzle-to-cloudflare-pages) if you want to know more about the project.*
+
+# Background
+
+I wanted to migrate my Turso DB to Cloudflare D1. As such this post will go into the details of the challenges I faced during the migration process.
+
+You can find the project and the repository below:
+
+<div class='flex items-center gap-2'>
+  <Icon
+    name='mdi:map'
+    class='text-orange-300 w-5 h-5'
+    title='Website'
+  />
+  <a href='https://map.flashblaze.dev/' target='_blank'>
+    MapViz
+  </a>
+</div>
+
+<div class='flex items-center gap-2'>
+  <Icon
+    name='mdi:github'
+    class='dark:text-white text-black w-5 h-5'
+    title='GitHub'
+  />
+  <a href='https://github.com/flashblaze/map' target='_blank'>
+    flashblaze/map
+  </a>
+</div>
+
+# Challenges
+
+## Making D1 work with drizzle and Astro
+
+D1 as well as drizzle-kit requires the project to have a `wrangler.toml` file. As such here is mine:
+
+```toml
+#:schema node_modules/wrangler/config-schema.json
+name = "map"
+compatibility_date = "2024-10-11"
+pages_build_output_dir = "./dist"
+
+[placement]
+mode = "smart"
+
+[vars]
+NODE_VERSION = "20.17.0"
+PNPM_VERSION = "9.9.0"
+
+[[d1_databases]]
+binding = "MAP"
+database_name = "map"
+database_id = "10eb6d23-6724-46e8-9bf2-c4091739f69f"
+migrations_dir = "migrations"
+migrations_table = "__drizzle_migrations"
+```
+
+Based on their docs it seemed like drizzle expects the argument to be of type `D1Database`. Since `env.d.ts` file is being used throughout the application for environment related stuff, I updated it like so:
+
+```ts
+/// <reference path="../.astro/types.d.ts" />
+
+type Runtime = import("@astrojs/cloudflare").Runtime<Env>;
+
+declare namespace App {
+  interface Locals extends Runtime {
+    env: {
+      CLOUDFLARE_ACCOUNT_ID: string;
+      CLOUDFLARE_DATABASE_ID: string;
+      CLOUDFLARE_D1_TOKEN: string;
+      CLOUDFLARE_D1_BINDING: string;
+      MAP: D1Database;
+    };
+  }
+}
+
+interface ImportMeta {
+  readonly env: {
+    readonly CLOUDFLARE_ACCOUNT_ID: string;
+    readonly CLOUDFLARE_DATABASE_ID: string;
+    readonly CLOUDFLARE_D1_TOKEN: string;
+    readonly CLOUDFLARE_D1_BINDING: string;
+  };
+}
+```
+
+If you observe, `MAP` in the `env.d.ts` file matches the `binding` in the `wrangler.toml` file.
+
+## Turso dump was not working
+
+I wanted to take a dump of my data. After searching of the same, I found out about the `dump` command. And so I ran `turso db shell map-viz ".dump" > map-viz.sql`. `map-viz` being the name of my database. However, every single time, the `map-viz.sql` was being created with empty content. I'm not sure what was wrong since I was correctly executing the command and the data was also present. So I finally resorted to manually exporting the data in the CSV format.
+
+## D1 does not support importing data in the CSV format
+
+Feeling good about myself after clearing the Turso hurdle, I was disappointed to find out that D1 does not support CSV import (at least as of this writing). So how to solve this new issue then?
+
+I updated my `env` to point to the hosted D1 and ran `pnpm db:migrate` to apply the migrations to my database. Good thing was D1 allowed running SQL queries directly. Since I had the CSV data, I wanted to create SQL statements from it. What good way than to use Claude for this. I asked it to write SQL queries and provided it a couple of CSV records. After modifying the output a bit, it spit out this JS file:
+
+```js
+const fs = require("fs");
+const csv = require("csv-parse/sync");
+
+const fileName = "location.csv";
+const tableName = "location";
+
+// Function to escape single quotes in string values
+function escapeQuotes(value) {
+  return value.replace(/'/g, "''");
+}
+
+// Function to format value for SQL
+function formatValue(value) {
+  if (value === "") return "NULL";
+  if (isNaN(value)) return `'${escapeQuotes(value)}'`;
+  return value;
+}
+
+// Read the CSV file
+const fileContent = fs.readFileSync(fileName, "utf8");
+
+// Parse the CSV content
+const records = csv.parse(fileContent, {
+  columns: true,
+  skip_empty_lines: true,
+});
+
+// Generate INSERT statements
+const insertStatements = records.map((record) => {
+  const columns = Object.keys(record).join(", ");
+  const values = Object.values(record).map(formatValue).join(", ");
+  return `INSERT INTO ${tableName} (${columns}) VALUES (${values});`;
+});
+
+// Write INSERT statements to a file
+fs.writeFileSync(`${fileName}.sql`, insertStatements.join("\n"));
+
+console.log(`INSERT statements have been written to ${fileName}.sql`);
+```
+
+After running the script it generated the SQL statements like so
+```sql
+INSERT INTO location (id, created_at, updated_at, latitude, longitude, city, region, region_code, country, hash, count, last_visit) VALUES (54, '2024-10-12 11:21:03', 1728732060, -34.0866, 18.8144, 'Somerset West', 'Western Cape', 'WC', 'ZA', '-34.08660-18.81440-Somerset West-Western Cape-WC-ZA-45.222.74.86', 1, 1728732060);
+INSERT INTO location (id, created_at, updated_at, latitude, longitude, city, region, region_code, country, hash, count, last_visit) VALUES (64, '2024-10-12 17:19:12', 1728753549, 46.3153, 4.8344, 'Mâcon', 'Bourgogne-Franche-Comté', 'BFC', 'FR', '46.31530-4.83440-Mâcon-Bourgogne-Franche-Comté-BFC-FR-2a01:cb10:82ae:c600:259e:a34c:1e8e:a4b5', 1, 1728753549);
+```
+
+SQL commands now being generated, the last step was to import the data. For which I ran `wrangler d1 execute map --file=./location.csv.sql --remote` and voila! The data was there in my D1 database.
+
+# Conclusion
+
+Even though I faced some challenges during integration of Cloudflare services and migrating data, moving to D1 was a good decision since the initial load times have pretty much been cut in half.
+
+<Comments client:only='react' />
