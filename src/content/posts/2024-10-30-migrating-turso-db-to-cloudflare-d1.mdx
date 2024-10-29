@@ -43,7 +43,7 @@ You can find the project and the repository below:
 
 ## Making D1 work with drizzle and Astro
 
-D1 as well as drizzle-kit requires the project to have a `wrangler.toml` file. As such here is mine:
+D1 as well as drizzle-kit requires the project to have a `wrangler.toml` file. Here is mine:
 
 ```toml
 #:schema node_modules/wrangler/config-schema.json
@@ -66,7 +66,7 @@ migrations_dir = "migrations"
 migrations_table = "__drizzle_migrations"
 ```
 
-Based on their docs it seemed like drizzle expects the argument to be of type `D1Database`. Since `env.d.ts` file is being used throughout the application for environment related stuff, I updated it like so:
+Ensure the corresponding D1 binding is also set in Cloudflare dashboard. Based on their docs it seemed like drizzle expects the argument to be of type `D1Database`. Since `env.d.ts` file is being used throughout the application for environment related stuff, I updated it like so:
 
 ```ts
 /// <reference path="../.astro/types.d.ts" />
@@ -99,13 +99,13 @@ If you observe, `MAP` in the `env.d.ts` file matches the `binding` in the `wrang
 
 ## Turso dump was not working
 
-I wanted to take a dump of my data. After searching of the same, I found out about the `dump` command. And so I ran `turso db shell map-viz ".dump" > map-viz.sql`. `map-viz` being the name of my database. However, every single time, the `map-viz.sql` was being created with empty content. I'm not sure what was wrong since I was correctly executing the command and the data was also present. So I finally resorted to manually exporting the data in the CSV format.
+I wanted to take a dump of my data. After searching, I found out about the `dump` command. I ran `turso db shell map-viz ".dump" > map-viz.sql`. `map-viz` being the name of my database. However, every single time, the `map-viz.sql` was being created with empty content. I'm not sure what was wrong since I was correctly executing the command and the data was also present. So I finally resorted to manually exporting the data in the CSV format.
 
 ## D1 does not support importing data in the CSV format
 
 Feeling good about myself after clearing the Turso hurdle, I was disappointed to find out that D1 does not support CSV import (at least as of this writing). So how to solve this new issue then?
 
-I updated my `env` to point to the hosted D1 and ran `pnpm db:migrate` to apply the migrations to my database. Good thing was D1 allowed running SQL queries directly. Since I had the CSV data, I wanted to create SQL statements from it. What good way than to use Claude for this. I asked it to write SQL queries and provided it a couple of CSV records. After modifying the output a bit, it spit out this JS file:
+I updated my `env` to point to the hosted D1 and ran `pnpm db:migrate` to apply the migrations to my database. Good thing was D1 allowed running SQL queries directly. Since I had the CSV data, I wanted to create SQL statements from it. What good way than to use Claude for this. I asked it to write SQL queries and provided it a couple of CSV records. After modifying the output a bit, here is the final JS file which I used:
 
 ```js
 const fs = require("fs");
@@ -148,7 +148,7 @@ fs.writeFileSync(`${fileName}.sql`, insertStatements.join("\n"));
 console.log(`INSERT statements have been written to ${fileName}.sql`);
 ```
 
-After running the script it generated the SQL statements like so
+After running the script it generated the SQL statements like so:
 ```sql
 INSERT INTO location (id, created_at, updated_at, latitude, longitude, city, region, region_code, country, hash, count, last_visit) VALUES (54, '2024-10-12 11:21:03', 1728732060, -34.0866, 18.8144, 'Somerset West', 'Western Cape', 'WC', 'ZA', '-34.08660-18.81440-Somerset West-Western Cape-WC-ZA-45.222.74.86', 1, 1728732060);
 INSERT INTO location (id, created_at, updated_at, latitude, longitude, city, region, region_code, country, hash, count, last_visit) VALUES (64, '2024-10-12 17:19:12', 1728753549, 46.3153, 4.8344, 'Mâcon', 'Bourgogne-Franche-Comté', 'BFC', 'FR', '46.31530-4.83440-Mâcon-Bourgogne-Franche-Comté-BFC-FR-2a01:cb10:82ae:c600:259e:a34c:1e8e:a4b5', 1, 1728753549);
