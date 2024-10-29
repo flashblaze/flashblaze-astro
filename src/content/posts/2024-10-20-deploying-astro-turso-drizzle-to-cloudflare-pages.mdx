@@ -8,22 +8,13 @@ date: '2024-10-20'
 import { Icon } from 'astro-icon/components';
 import Comments from '../../components/React/Comments';
 
+*You can check out the "Part 2" of this post here: [Migrating my Turso DB to Cloudflare D1](/posts/migrating-turso-db-to-cloudflare-d1). I have also edited a couple of links and edited some content to keep it updated with Part 2. You can checkout this website's repo and check the history for the changes.*
+
 # Background
 
 I wanted to build a project which utilized map in some way using [deck.gl](https://deck.gl/). So I thought what better way than to visualize the users who are visiting the project itself. I knew I would need visitor's location (rough/accurate it did not matter to me that much) and I was aware that Cloudflare allows you to enable [location headers](https://developers.cloudflare.com/rules/transform/managed-transforms/reference/#add-visitor-location-headers) from which I could extract the data which I wanted.
 
-This post won't go into detail of the project itself as such. Rather the issues and the flow itself for deploying the app. Below are the links to the project and the repository:
-
-<div class='flex items-center gap-2'>
-  <Icon
-    name='mdi:map'
-    class='text-orange-300 w-5 h-5'
-    title='Website'
-  />
-  <a href='https://map.flashblaze.dev/' target='_blank'>
-    MapViz
-  </a>
-</div>
+This post won't go into detail of the project itself as such. Rather the issues and the flow itself for deploying the app. You can check the repository below:
 
 <div class='flex items-center gap-2'>
   <Icon
@@ -31,7 +22,7 @@ This post won't go into detail of the project itself as such. Rather the issues 
     class='dark:text-white text-black w-5 h-5'
     title='GitHub'
   />
-  <a href='https://github.com/flashblaze/map' target='_blank'>
+  <a href='https://github.com/flashblaze/map/tree/turso-unused' target='_blank'>
     flashblaze/map
   </a>
 </div>
@@ -184,33 +175,5 @@ Setting `NODE_VERSION` to `20.17.0` and `PNPM_VERSION` to `9.9.0` under [Variabl
 ## The website takes too long to load
 
 As of this writing, the website takes about 10 seconds to load when loaded for the first time. I think this is due to the cold start of the Turso DB.  One solution is to keep the DB "hot" by making API calls at certain intervals which I don't plan on doing. So I have yet to find an actual solution for this 🥲.
-
-# What's next?
-
-Right now, I'm in the process of migrating to [Cloudflare D1](https://developers.cloudflare.com/d1/). Below are the D1 specific links:
-
-<div class='flex items-center gap-2'>
-  <Icon
-    name='mdi:map'
-    class='text-orange-300 w-5 h-5'
-    title='Website'
-  />
-  <a href='https://d1-map.flashblaze.dev/' target='_blank'>
-    D1 MapViz
-  </a>
-</div>
-
-<div class='flex items-center gap-2'>
-  <Icon
-    name='mdi:github'
-    class='dark:text-white text-black w-5 h-5'
-    title='GitHub'
-  />
-  <a href='https://github.com/flashblaze/map/tree/d1' target='_blank'>
-    flashblaze/map (D1 branch)
-  </a>
-</div>
-
-I will update this section once I have completely migrated and tested the app along with the challenges faced during migration as well, lol. I also need to work on a good CI/CD pipeline using GitHub Actions since the migrations are currently being run manually.
 
 <Comments client:only='react' />
