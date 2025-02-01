@@ -1,7 +1,8 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import '@fontsource/poppins';
 import '@fontsource-variable/jetbrains-mono';
+import '../../styles/global.css';
 
 export interface Props {
   docTitle: string;
@@ -52,5 +53,5 @@ const {
   <meta name='twitter:description' content={docDescription} />
   <link rel='me' href='https://fosstodon.org/@flashblaze' />
   <link rel='me' href='https://mastodon.social/@neeraj_artx' />
-  <ViewTransitions />
+  <ClientRouter />
 </head>
