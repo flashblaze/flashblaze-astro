@@ -1,5 +1,4 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
@@ -8,11 +7,12 @@ import toc from '@jsdevtools/rehype-toc';
 import rehypeSlug from 'rehype-slug';
 import icon from 'astro-icon';
 
+import tailwindcss from '@tailwindcss/vite';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://flashblaze.xyz',
   integrations: [
-    tailwind(),
     mdx({
       shikiConfig: {
         // Alternatively, provide multiple themes
@@ -50,5 +50,7 @@ export default defineConfig({
         '@codesandbox/sandpack-client',
       ],
     },
+
+    plugins: [tailwindcss()],
   },
 });
