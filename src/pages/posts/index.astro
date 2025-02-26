@@ -26,7 +26,7 @@ const sortedPosts = posts.sort((a, b) => {
       <Post
         date={post.data.date}
         href={`/posts/${post.slug}`}
-        fullReload={post.slug === 'integrating-sandpack'}
+        fullReload={post.slug === 'integrating-sandpack' ? true : undefined}
       >
         {post.data.title}
       </Post>
