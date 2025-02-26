@@ -6,7 +6,7 @@ date: '2025-02-26'
 ---
 
 import { Tweet } from 'astro-embed';
-import { Picture } from 'astro:assets';
+import ZoomablePicture from '../../components/Astro/ZoomablePicture.astro';
 
 import Comments from '../../components/React/Comments';
 import Image1 from '../../../public/post-assets/using-durable-objects-sql-storage-d1-and-drizzle/1_d1_db.png';
@@ -45,7 +45,7 @@ Install these additional dependencies: `bun add better-sqlite3 dotenv drizzle-or
 
 Then, go to your Cloudflare dashboard and create a D1 database.
 
-<Picture src={Image1} alt='D1 dashboard' formats={['avif', 'webp']} />
+<ZoomablePicture src={Image1} alt='D1 dashboard' formats={['avif', 'webp']} />
 
 Update your `wrangler.jsonc` with the below config
 
@@ -151,7 +151,7 @@ We're going to create some tokens and get some ids to get it all working togethe
 
 ### Account and D1 IDs
 
-<Picture src={Image2} alt='Account ID' formats={['avif', 'webp']} />
+<ZoomablePicture src={Image2} alt='Account ID' formats={['avif', 'webp']} />
 
 1. Log into Cloudflare dashboard, go to _Workers & Pages_ and make a note of the _Account ID_ visible at the right side.
 2. Make a note of the D1 database id which you created in the earlier step. You can refer the same from `wrangler.jsonc` as well.
@@ -160,7 +160,7 @@ We'll now create 2 tokens: a D1 token and a deployment token.
 
 ### D1 token
 
-<Picture src={Image3} alt='D1 token creation' formats={['avif', 'webp']} />
+<ZoomablePicture src={Image3} alt='D1 token creation' formats={['avif', 'webp']} />
 
 1. To create D1 token, visit: [API Tokens](https://dash.cloudflare.com/profile/api-tokens).
 2. Click on **Create Token** and then click on **Get Started** at the bottom.
@@ -170,7 +170,7 @@ We'll now create 2 tokens: a D1 token and a deployment token.
 
 ### Workers token
 
-<Picture
+<ZoomablePicture
   src={Image4}
   alt='Workers deployment token creation'
   formats={['avif', 'webp']}
@@ -316,7 +316,7 @@ To view the database, run
 
 Visit https://local.drizzle.studio. It would look something like this
 
-<Picture src={Image5} alt='Drizzle studio UI' formats={['avif', 'webp']} />
+<ZoomablePicture src={Image5} alt='Drizzle studio UI' formats={['avif', 'webp']} />
 
 ## D1 deployment
 
