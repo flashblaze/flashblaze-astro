@@ -3,6 +3,7 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import { remarkAlert } from 'remark-github-blockquote-alert';
 import toc from '@jsdevtools/rehype-toc';
 import rehypeSlug from 'rehype-slug';
 import icon from 'astro-icon';
@@ -34,6 +35,7 @@ export default defineConfig({
         ],
         toc,
       ],
+      remarkPlugins: [remarkAlert],
       extendMarkdownConfig: false,
       smartypants: true,
       gfm: true,
@@ -50,7 +52,6 @@ export default defineConfig({
         '@codesandbox/sandpack-client',
       ],
     },
-
     plugins: [tailwindcss()],
   },
 });
