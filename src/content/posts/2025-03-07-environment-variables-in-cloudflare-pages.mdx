@@ -14,9 +14,9 @@ I wanted to deploy a SPA (single page application) to Cloudflare and right now C
 - [Pages](https://developers.cloudflare.com/pages/)
 - [Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/)
 
-But there is an issue. You cannot use environment variables in Pages. Using env vars in Static Assets is fairly straightforward. You declare them in the `vars` scope in `wrangler.toml` (or `jsonc`) and you get access to them in the context passed on by the request.
+Using env vars in Static Assets is fairly straightforward. You declare them in the `vars` scope in `wrangler.toml` (or `jsonc`) and you get access to them in the context passed on by the request. But there is an issue. You cannot use environment variables in Pages and also there is no `wrangler.toml` to declare your variables.
 
-But I was not interested in going via the Workers route. I wanted to deploy my SPA _AND_ to also use the environment variables.
+I could have gone via the Static Assets route, but it was overkill just to use some environment variables. I wanted to deploy my SPA **AND** to also use the environment variables.
 
 # Vite to the rescue
 
