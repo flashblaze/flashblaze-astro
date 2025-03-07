@@ -1,0 +1,130 @@
+---
+title: 'Using Environment Variables in Cloudflare Pages'
+slug: 'environment-variables-in-cloudflare-pages'
+description: 'Walkthrough on how to use environment varisables in Cloudflare pages'
+date: '2025-03-07'
+---
+
+import Comments from '../../components/React/Comments';
+
+# Background
+
+I wanted to deploy a SPA (single page application) to Cloudflare and right now Cloudflare offers 2 ways to deploy them
+
+- [Pages](https://developers.cloudflare.com/pages/)
+- [Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/)
+
+But there is an issue. You cannot use environment variables in Pages. Using env vars in Static Assets is fairly straightforward. You declare them in the `vars` scope in `wrangler.toml` (or `jsonc`) and you get access to them in the context passed on by the request.
+
+But I was not interested in going via the Workers route. I wanted to deploy my SPA _AND_ to also use the environment variables.
+
+# Vite to the rescue
+
+## Project setup
+
+Bootstrap a basic React app via the [Cloudflare CLI](https://developers.cloudflare.com/pages/framework-guides/deploy-a-react-site/). I'm using `bun`
+
+`bun create cloudflare@latest react-env --framework=react`
+
+1. Choose _Pages_.
+2. Choose your preferred variant. I'm choosing _TypeScript_.
+3. Open the project.
+
+Let's say you want to have different API URL per environment. To do so, open `vite.config.ts` (or `vite.config.js`) file and update it like so
+
+```ts
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+
+// https://vite.dev/config/
+export default defineConfig(({ mode }) => ({
+  plugins: [react()],
+  define: {
+    'import.meta.VITE_API_URL':
+      mode === 'development' ? undefined : 'process.env.VITE_API_URL',
+  },
+}));
+```
+
+In the above config, `VITE_API_URL` is the API URL our app would need. To make it work locally, create a `.env` file and update it like so
+
+```sh
+VITE_API_URL=YOUR_ACTUAL_API_URL
+```
+
+Now when you run the project, and use the variable via `import.meta.env.VITE_API_URL`, everything would work as expected since during development we're not replacing anything.
+
+## Deployment
+
+That's all good, but what about when the app is deployed to Ccloudflare? As with everything, we again have 2 options
+
+1. Setting the variables in the dashboard
+2. Using GitHub Actions
+
+### Setting the variables in the dashboard
+
+1. Log into your Cloudflare dashboard.
+2. Create a Pages project.
+3. Via their GitHub connection, select your project.
+4. Create a plain text variable via project settings for _Production_ and _Preview_ environments.
+5. On the next deployment, everything should be working.
+
+### Using GitHub Actions
+
+Create a Pages project in Cloudflare dashboard since we would be using the name in the Action. Here is a bare minimum Action which you can use via `bun`
+
+```yml
+name: Deploy Pages
+on:
+  push:
+    branches:
+      - main
+      - dev
+    paths:
+      - '.github/workflows/workflow.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.17.0'
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build
+        run: bun run build
+        env:
+          VITE_API_URL: ${{ github.ref == 'refs/heads/dev' && 'https://dev.example.com' || 'https://example.com' }}
+
+      - name: Deploy to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=your-cf-project-name
+```
+
+- We're running the Action on `dev` and `main` branches.
+- In the _Build_ step, we're setting the variables we want to use for each branch.
+- In the _Deploy to Cloudflare_ step, we're deploying the app to our account via `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. To know how to get these, you can refer to [this section of my blog post](https://flashblaze.xyz/posts/using-durable-objects-sql-storage-d1-and-drizzle#tokens-and-ids).
+- Replace `your-cf-project-name` with the project name you created earlier.
+
+# Conclusion
+
+In both of these methods, we're essentially replacing the variable names which we're using with the actual variables' content during the build step allowing us to use environment variables even in Cloudflare Pages.
+
+Enjoy 🥳
+
+<Comments client:only='react' />
