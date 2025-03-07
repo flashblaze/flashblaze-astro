@@ -14,7 +14,7 @@ I wanted to deploy a SPA (single page application) to Cloudflare and right now C
 - [Pages](https://developers.cloudflare.com/pages/)
 - [Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/)
 
-but there is an issue. You cannot use environment variables in Pages. Using env vars in Static Assets is fairly straightforward, you decalre them in the `vars` scope in `wrangler.toml` (or `jsonc`) and you get access to them in the context passed on by the request.
+But there is an issue. You cannot use environment variables in Pages. Using env vars in Static Assets is fairly straightforward. You declare them in the `vars` scope in `wrangler.toml` (or `jsonc`) and you get access to them in the context passed on by the request.
 
 But I was not interested in going via the Workers route. I wanted to deploy my SPA _AND_ to also use the environment variables.
 
@@ -52,7 +52,7 @@ In the above config, `VITE_API_URL` is the API URL our app would need. To make i
 VITE_API_URL=YOUR_ACTUAL_API_URL
 ```
 
-Now when you run the project, and use the url via `import.meta.env.VITE_API_URL`, everything would work as expected since during development we're not replacing anything.
+Now when you run the project, and use the variable via `import.meta.env.VITE_API_URL`, everything would work as expected since during development we're not replacing anything.
 
 ## Deployment
 
@@ -63,9 +63,7 @@ That's all good, but what about when the app is deployed to Ccloudflare? As with
 
 ### Setting the variables in the dashboard
 
-This one is pretty straightforward.
-
-1. Log into your CLoudflare dashboard.
+1. Log into your Cloudflare dashboard.
 2. Create a Pages project.
 3. Via their GitHub connection, select your project.
 4. Create a plain text variable via project settings for _Production_ and _Preview_ environments.
@@ -119,13 +117,13 @@ jobs:
 ```
 
 - We're running the Action on `dev` and `main` branches.
-- In the _Build_ step, we're setting the variables we want to set for each branch.
+- In the _Build_ step, we're setting the variables we want to use for each branch.
 - In the _Deploy to Cloudflare_ step, we're deploying the app to our account via `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. To know how to get these, you can refer to [this section of my blog post](https://flashblaze.xyz/posts/using-durable-objects-sql-storage-d1-and-drizzle#tokens-and-ids).
 - Replace `your-cf-project-name` with the project name you created earlier.
 
 # Conclusion
 
-In both of these methods, we're essentially replacing the variable names which we're using with the actual variables' content during the build step.
+In both of these methods, we're essentially replacing the variable names which we're using with the actual variables' content during the build step allowing us to use environment variables even in Cloudflare Pages.
 
 Enjoy 🥳
 
