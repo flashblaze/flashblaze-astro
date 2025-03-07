@@ -18,6 +18,7 @@ const {
   docOgUrl,
   docOgImage = 'https://flashblaze.xyz/og_image.png',
 } = Astro.props as Props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <head>
@@ -54,5 +55,6 @@ const {
   <meta name='twitter:description' content={docDescription} />
   <link rel='me' href='https://fosstodon.org/@flashblaze' />
   <link rel='me' href='https://mastodon.social/@neeraj_artx' />
+  <link rel='canonical' href={canonicalURL} />
   <ClientRouter />
 </head>
