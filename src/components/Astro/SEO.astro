@@ -46,6 +46,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta property='og:description' content={docDescription} />
   <meta property='og:title' content={docTitle} />
   <meta property='og:image' content={docOgImage} />
+  <meta property='og:type' content='website' />
 
   <meta name='twitter:url' content={docOgUrl} />
   <meta name='twitter:image' content={docOgImage} />
@@ -56,5 +57,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <link rel='me' href='https://fosstodon.org/@flashblaze' />
   <link rel='me' href='https://mastodon.social/@neeraj_artx' />
   <link rel='canonical' href={canonicalURL} />
+  <link rel='sitemap' href='/sitemap-index.xml' />
   <ClientRouter />
 </head>
