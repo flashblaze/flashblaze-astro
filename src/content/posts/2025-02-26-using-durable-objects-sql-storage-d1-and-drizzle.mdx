@@ -16,7 +16,9 @@ import Image4 from '../../../public/post-assets/using-durable-objects-sql-storag
 import Image5 from '../../../public/post-assets/using-durable-objects-sql-storage-d1-and-drizzle/5_drizzle_studio.png';
 
 > [!NOTE]
-> Before we begin, ensure that you're on the Workers paid plan to use Durable Objects.
+> ~Before we begin, ensure that you're on the Workers paid plan to use Durable Objects.~
+>
+> As of 7th April 2025, Durable Objects is also avaialble in free tier. Read the announcement post [here](https://blog.cloudflare.com/building-ai-agents-with-mcp-authn-authz-and-durable-objects/#durable-objects-on-free-tier).
 
 # Background
 
@@ -160,7 +162,11 @@ We'll now create 2 tokens: a D1 token and a deployment token.
 
 ### D1 token
 
-<ZoomablePicture src={Image3} alt='D1 token creation' formats={['avif', 'webp']} />
+<ZoomablePicture
+  src={Image3}
+  alt='D1 token creation'
+  formats={['avif', 'webp']}
+/>
 
 1. To create D1 token, visit: [API Tokens](https://dash.cloudflare.com/profile/api-tokens).
 2. Click on **Create Token** and then click on **Get Started** at the bottom.
@@ -316,7 +322,11 @@ To view the database, run
 
 Visit https://local.drizzle.studio. It would look something like this
 
-<ZoomablePicture src={Image5} alt='Drizzle studio UI' formats={['avif', 'webp']} />
+<ZoomablePicture
+  src={Image5}
+  alt='Drizzle studio UI'
+  formats={['avif', 'webp']}
+/>
 
 ## D1 deployment
 
