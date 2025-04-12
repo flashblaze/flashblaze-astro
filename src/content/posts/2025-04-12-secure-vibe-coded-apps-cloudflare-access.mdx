@@ -1,0 +1,105 @@
+---
+title: 'Securing Vide Coded Applications using Cloudflare Access'
+slug: 'secure-vibe-coded-apps-cloudflare-access'
+description: 'Walkthrough on how to secure your vibe coded applications using Cloudflare Access so only you can access them'
+date: '2025-04-12'
+---
+
+import ZoomablePicture from '../../components/Astro/ZoomablePicture.astro';
+import Comments from '../../components/React/Comments';
+import Image1 from '../../../public/post-assets/secure-vibe-coded-apps-cloudflare-access/1_authentication.png';
+import Image2 from '../../../public/post-assets/secure-vibe-coded-apps-cloudflare-access/2_add_new.png';
+import Image3 from '../../../public/post-assets/secure-vibe-coded-apps-cloudflare-access/3_on_screen_insructions.png';
+import Image4 from '../../../public/post-assets/secure-vibe-coded-apps-cloudflare-access/4_policy.png';
+import Image5 from '../../../public/post-assets/secure-vibe-coded-apps-cloudflare-access/5_configuration_1.png';
+import Image6 from '../../../public/post-assets/secure-vibe-coded-apps-cloudflare-access/6_configuration_2.png';
+
+# Background
+
+I wanted to share some large video files with my friends on Discord, but due to size limit I could not. I could have easily uploaded them to YouTube (and make them unlisted) or my Google Drive (which would have eaten up my space), but where's the fun in that. Instead, I thought why not upload them to my [R2](https://developers.cloudflare.com/r2/) bucket and then share that URL instead.
+
+This being a fun little project, I thought why not also give ["vibe coding"](https://x.com/karpathy/status/1886192184808149383) a try. The project is open source on [GitHub](https://github.com/flashblaze/files) as well.
+
+But now the issue was, the domain from which I was uploading the files was unauthenticated, anyone could just visit the domain and begin uploading files to my R2 bucket which I did not want. Furthermore, having auth for such a simple side project seemed overkill to me.
+
+# Cloudflare Access to the rescue
+
+[Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/policies/access/) allows you to configure who can reach your application based on the policies you set. In my opinion automatic identification via GitHub OAuth worked the best for me since I'm logged into GitHub pretty much everywhere. Below steps will show you how to configure one for yourself.
+
+# Confguration
+
+## Creating a login method
+
+1. Got to [Cloudflare One](https://one.dash.cloudflare.com), click on **Settings** and then **Authentication**.
+
+<ZoomablePicture
+  src={Image1}
+  alt='Authentication card under Settings in Cloudflare Access'
+  formats={['avif', 'webp']}
+/>
+
+2. Under **Login methods** click on **Add new** and then click on **GitHub** on the next screen.
+
+<ZoomablePicture
+  src={Image2}
+  alt='Login methods under Authentication section'
+  formats={['avif', 'webp']}
+/>
+
+3. Follow the on screen instructions and put in the **App ID** and **Client
+   Secret**.
+
+<ZoomablePicture
+  src={Image3}
+  alt='GitHub login method configuration'
+  formats={['avif', 'webp']}
+/>
+
+## Creating a policy
+
+Now that a login method has been created, we need to configure it a bit.
+
+1. Under **Access**, click on **Policies** and then **Add an application**.
+2. Enter **Policy name**, **Action** as **Allow** and **Session duration** to whatever you want. I personally choose **24 hours**.
+
+<ZoomablePicture
+  src={Image4}
+  alt='Policy details form'
+  formats={['avif', 'webp']}
+/>
+
+3. Under **Selector** select **Login methods** and under **Value** choose the GitHub login method you created earlier.
+4. Click on **+ Add include**, choose **Emails** under **Selector** and add the emails which you want to allow under the **Value** field.
+5. Click on **Save**.
+
+## Securing the application
+
+1. Under **Access**, click on **Applications** and then **Add an application**.
+2. Select **Self-hosted**.
+3. Add an **Application name**. If your website is on a subdomain, enter it, else leave it blank and choose the **Domain**.
+4. Click on **Select existing policies** and choose the GitHub policy which you created earlier.
+
+<ZoomablePicture
+  src={Image5}
+  alt='Configure application, adding basic information'
+  formats={['avif', 'webp']}
+/>
+
+5. Under **Login methods** disable **Accept all available identity providers**, select only the **GitHub** provider (in case you have multiple configured) and enable **Instant Auth** which would automatically trigger the GitHub OAuth flow.
+
+<ZoomablePicture
+  src={Image6}
+  alt='Configure application, login methods'
+  formats={['avif', 'webp']}
+/>
+
+6. Click on Next, Next and Save.
+
+Now if anyone visits your application, they would be allowed only if their GitHub email maches the one which you have specified. You have now successfully secured your "vibe coded" application.
+
+> [!NOTE]
+> If you have a separate API, ensure you have something similar in place for that as well. I only needed to secure my single app since it was a fullstack application.
+
+Enjoy 🥳
+
+<Comments client:only='react' />
