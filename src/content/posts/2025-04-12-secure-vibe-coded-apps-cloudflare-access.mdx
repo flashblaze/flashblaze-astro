@@ -16,21 +16,21 @@ import Image6 from '../../../public/post-assets/secure-vibe-coded-apps-cloudflar
 
 # Background
 
-I wanted to share some large video files with my friends on Discord, but due to size limit I could not. I could have easily uploaded them to YouTube (and make them unlisted) or my Google Drive (which would have eaten up my space), but where's the fun in that. Instead, I thought why not upload them to my [R2](https://developers.cloudflare.com/r2/) bucket and then share that URL instead.
+I wanted to share some large video files with my friends on Discord, but due to the file size limit I could not. I could have easily uploaded them to YouTube (and make them unlisted) or my Google Drive (which would have eaten up my space), but where's the fun in that. Instead, I thought, why not upload them to my <a href="https://developers.cloudflare.com/r2/" target="_blank">R2</a> bucket and then share that URL instead.
 
-This being a fun little project, I thought why not also give ["vibe coding"](https://x.com/karpathy/status/1886192184808149383) a try. The project is open source on [GitHub](https://github.com/flashblaze/files) as well.
+This being a fun little project, I thought why not also give <a href="https://x.com/karpathy/status/1886192184808149383" target="_blank">"vibe coding"</a> a try. The project is open source on my <a href="https://github.com/flashblaze/files" target="_blank">GitHub</a> as well.
 
-But now the issue was, the domain from which I was uploading the files was unauthenticated, anyone could just visit the domain and begin uploading files to my R2 bucket which I did not want. Furthermore, having auth for such a simple side project seemed overkill to me.
+But now the issue was, the domain from which I was uploading the files was unauthenticated. Anyone could just visit the domain and begin uploading files to my R2 bucket which I did not want. Furthermore, having auth for such a simple side project seemed overkill to me.
 
 # Cloudflare Access to the rescue
 
-[Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/policies/access/) allows you to configure who can reach your application based on the policies you set. In my opinion automatic identification via GitHub OAuth worked the best for me since I'm logged into GitHub pretty much everywhere. Below steps will show you how to configure one for yourself.
+[Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/policies/access/) allows you to configure who can reach your application based on the policies you set. Automatic identification via GitHub OAuth worked the best for me since I'm always logged into GitHub from pretty much everywhere. Below steps will show you how to configure one for yourself.
 
 # Confguration
 
 ## Creating a login method
 
-1. Got to [Cloudflare One](https://one.dash.cloudflare.com), click on **Settings** and then **Authentication**.
+1. Got to <a href="https://one.dash.cloudflare.com" target="_blank">Cloudflare One</a>, click on **Settings** and then **Authentication**.
 
 <ZoomablePicture
   src={Image1}
@@ -60,7 +60,7 @@ But now the issue was, the domain from which I was uploading the files was unaut
 Now that a login method has been created, we need to configure it a bit.
 
 1. Under **Access**, click on **Policies** and then **Add an application**.
-2. Enter **Policy name**, **Action** as **Allow** and **Session duration** to whatever you want. I personally choose **24 hours**.
+2. Enter **Policy name**, **Action** as **Allow** and **Session duration** to whatever you want. I personally like to set it to **24 hours**.
 
 <ZoomablePicture
   src={Image4}
@@ -76,7 +76,7 @@ Now that a login method has been created, we need to configure it a bit.
 
 1. Under **Access**, click on **Applications** and then **Add an application**.
 2. Select **Self-hosted**.
-3. Add an **Application name**. If your website is on a subdomain, enter it, else leave it blank and choose the **Domain**.
+3. Add an **Application name**. If your website is on a subdomain, enter it, else leave it blank and choose the **Domain** already added in your Cloudflare account.
 4. Click on **Select existing policies** and choose the GitHub policy which you created earlier.
 
 <ZoomablePicture
@@ -93,7 +93,7 @@ Now that a login method has been created, we need to configure it a bit.
   formats={['avif', 'webp']}
 />
 
-6. Click on Next, Next and Save.
+6. Click on **Next**, **Next** and **Save**.
 
 Now if anyone visits your application, they would be allowed only if their GitHub email maches the one which you have specified. You have now successfully secured your "vibe coded" application.
 
