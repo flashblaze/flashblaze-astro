@@ -9,6 +9,7 @@ import GraphicsCard from '../components/Astro/GraphicsCard.astro';
 import Image1 from '../../public/affinity-img-1.jpg';
 import Image2 from '../../public/affinity-img-2.jpg';
 import Image3 from '../../public/blender-img-1.jpg';
+import Link from '../components/Astro/Link.astro';
 
 const posts = await getCollection('posts');
 
@@ -74,12 +75,21 @@ const latestPostDate = date.toUTCString().slice(0, 16);
   </div>
   <hr class='my-2 text-gray-300' />
   <div class='flex flex-col'>
-    <h3 class='my-4 text-2xl font-bold'>Some graphics stuff</h3>
+    <p>
+      I'm a software engineer based in India and currently building <Link
+        href='https://instaclock.app'
+        newTab
+      >
+        InstaClock
+      </Link>
+    </p>
+    <h2 class='my-4 text-2xl font-bold'>Some graphics stuff</h2>
     <div class='flex gap-2 flex-col sm:flex-row'>
       <GraphicsCard href='https://www.instagram.com/p/CgU30DBj8qs/'>
         <Picture
           src={Image1}
           alt='Black and white statue whose face is pixelated and lost identity is written behind it'
+          class='rounded-sm'
           loading='eager'
           formats={['avif', 'webp']}
         />
@@ -88,6 +98,7 @@ const latestPostDate = date.toUTCString().slice(0, 16);
         <Picture
           src={Image2}
           alt='3D cube in front of 3 glowing spheres'
+          class='rounded-sm'
           loading='eager'
           formats={['avif', 'webp']}
         />
@@ -95,7 +106,8 @@ const latestPostDate = date.toUTCString().slice(0, 16);
       <GraphicsCard href='https://www.instagram.com/p/BqHgzG9n_l_/'>
         <Picture
           src={Image3}
-          alt='Blurred out colourful gradient circle inside a square which is on top of blurred out colourfu; gradient'
+          alt='Blurred out colourful gradient circle inside a square which is on top of blurred out colourful gradient'
+          class='rounded-sm'
           loading='eager'
           formats={['avif', 'webp']}
         />
