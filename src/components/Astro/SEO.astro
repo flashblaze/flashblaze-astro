@@ -4,12 +4,18 @@ import '@fontsource/poppins';
 import '@fontsource-variable/jetbrains-mono';
 import 'remark-github-blockquote-alert/alert.css';
 import '../../styles/global.css';
+import BlogContentSchema from './BlogContentSchema.astro';
+import BlogPostListingSchema from './BlogPostListingSchema.astro';
+import MainContentSchema from './MainContentSchema.astro';
 
 export interface Props {
   docTitle: string;
   docDescription: string;
   docOgUrl: string;
   docOgImage?: string;
+  datePublished?: Date;
+  dateModified?: Date;
+  renderSchemaType?: 'BlogPostListing' | 'BlogPost' | 'Main';
 }
 
 const {
@@ -17,6 +23,9 @@ const {
   docDescription,
   docOgUrl,
   docOgImage = 'https://flashblaze.xyz/og_image.png',
+  datePublished,
+  dateModified,
+  renderSchemaType = 'Main',
 } = Astro.props as Props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -36,6 +45,20 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       y.parentNode.insertBefore(t, y);
     })(window, document, 'clarity', 'script', 'dlytpbfc57');
   </script>
+
+  {renderSchemaType === 'Main' && <MainContentSchema />}
+  {renderSchemaType === 'BlogPostListing' && <BlogPostListingSchema />}
+  {
+    renderSchemaType === 'BlogPost' && (
+      <BlogContentSchema
+        title={docTitle}
+        description={docDescription}
+        image={docOgImage}
+        datePublished={datePublished}
+        dateModified={dateModified}
+      />
+    )
+  }
 
   <title>{docTitle}</title>
   <meta name='author' content='Neeraj Lagwankar' />

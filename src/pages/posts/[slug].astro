@@ -21,7 +21,7 @@ const { title, date, description } = post.data;
 const { slug } = post;
 ---
 
-<Post {title} {date} {description} {slug}>
+<Post {title} {date} {description} {slug} renderSchemaType='BlogPost'>
   <Picture
     src={`/post-assets/${slug}/og_image.png`}
     alt={'alt'}

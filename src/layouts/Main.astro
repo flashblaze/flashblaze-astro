@@ -4,8 +4,20 @@ export interface Props {
   description: string;
   ogUrl: string;
   ogImage?: string;
+  datePublished?: Date;
+  dateModified?: Date;
+  renderSchemaType?: 'BlogPostListing' | 'BlogPost' | 'Main';
 }
-const { title, description, ogUrl, ogImage } = Astro.props as Props;
+
+const {
+  title,
+  description,
+  ogUrl,
+  ogImage,
+  datePublished,
+  dateModified,
+  renderSchemaType = 'Main',
+} = Astro.props as Props;
 import Link from '../components/Astro/Link.astro';
 import SEO from '../components/Astro/SEO.astro';
 import ThemeSwitcher from '../components/Astro/ThemeSwitcher.astro';
@@ -30,6 +42,9 @@ import ThemeSwitcher from '../components/Astro/ThemeSwitcher.astro';
     docDescription={description}
     docOgUrl={ogUrl}
     docOgImage={ogImage}
+    {datePublished}
+    {dateModified}
+    {renderSchemaType}
   />
   <body
     class='dark:bg-zinc-900 dark:text-white text-black font-sans w-full max-w-3xl mx-auto'
