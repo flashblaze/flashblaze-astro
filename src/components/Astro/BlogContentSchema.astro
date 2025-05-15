@@ -1,0 +1,32 @@
+---
+const { title, description, image, datePublished, dateModified } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description: description,
+  image: image,
+  url: canonicalURL,
+  author: {
+    '@type': 'Person',
+    '@id': 'https://flashblaze.xyz/#person',
+    name: 'Neeraj Lagwankar',
+    url: 'https://flashblaze.xyz',
+    sameAs: [
+      'https://fosstodon.org/@flashblaze',
+      'https://mastodon.social/@neeraj_artx',
+      'https://x.com/neeraj_artx',
+      'https://github.com/flashblaze',
+      'https://www.linkedin.com/in/neeraj-lagwankar/',
+      'https://www.instagram.com/neeraj_artx/',
+    ],
+  },
+  datePublished: datePublished,
+  dateModified: dateModified,
+};
+---
+
+<script type='application/ld+json' set:html={JSON.stringify(schema)} />

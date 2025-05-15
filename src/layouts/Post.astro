@@ -6,6 +6,7 @@ export interface Props {
   slug: string;
 }
 
+import BlogContentSchema from '../components/Astro/BlogContentSchema.astro';
 import Main from './Main.astro';
 
 let { title, date, description } = Astro.props;
@@ -21,6 +22,13 @@ const parsedDate = date.toUTCString().slice(0, 16);
   ogUrl={`https://flashblaze.xyz/posts/${slug}`}
   ogImage={`https://flashblaze.xyz/post-assets/${slug}/og_image.png`}
 >
+  <BlogContentSchema
+    {title}
+    {description}
+    image={`https://flashblaze.xyz/post-assets/${slug}/og_image.png`}
+    datePublished={date}
+    dateModified={date}
+  />
   <h1 class='font-semibold text-2xl'>{title}</h1>
   <p class='font-medium text-sm dark:text-gray-300 text-gray-600 mt-2 mb-10'>
     {parsedDate}
