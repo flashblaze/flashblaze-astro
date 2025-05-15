@@ -1,0 +1,26 @@
+---
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  '@id': 'https://flashblaze.xyz/posts/#blog',
+  url: 'https://flashblaze.xyz/posts/',
+  name: 'Neeraj Lagwankar Blog',
+  description:
+    'Articles about web development, Cloudflare, Astro, React, modern web technologies and more.',
+  author: {
+    '@id': 'https://flashblaze.xyz/#person',
+    name: 'Neeraj Lagwankar',
+    url: 'https://flashblaze.xyz',
+    sameAs: [
+      'https://fosstodon.org/@flashblaze',
+      'https://mastodon.social/@neeraj_artx',
+      'https://x.com/neeraj_artx',
+      'https://github.com/flashblaze',
+      'https://www.linkedin.com/in/neeraj-lagwankar/',
+      'https://www.instagram.com/neeraj_artx/',
+    ],
+  },
+};
+---
+
+<script type='application/ld+json' set:html={JSON.stringify(schema)} />

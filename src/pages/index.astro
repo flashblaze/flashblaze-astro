@@ -10,6 +10,7 @@ import Image1 from '../../public/affinity-img-1.jpg';
 import Image2 from '../../public/affinity-img-2.jpg';
 import Image3 from '../../public/blender-img-1.jpg';
 import Link from '../components/Astro/Link.astro';
+import MainContentSchema from '../components/Astro/MainContentSchema.astro';
 
 const posts = await getCollection('posts');
 
@@ -30,6 +31,7 @@ const latestPostDate = date.toUTCString().slice(0, 16);
   description='Frontend developer and 2D/3D enthusiast'
   ogUrl='https://flashblaze.xyz'
 >
+  <MainContentSchema />
   <h1 class='font-bold text-3xl'>Neeraj Lagwankar</h1>
   <p class='text-gray-700 dark:text-gray-400'>
     Developer, amateur photographer and <i><del>professional</del></i> wannabe artist
