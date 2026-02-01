@@ -1,0 +1,104 @@
+---
+title: 'Building a Telegram Bot with Cloudflare Workers, Durable Objects and grammY'
+slug: 'cloudflare-workers-durable-objects-telegram-bot'
+description: 'Walkthrough on how to build and deploy a Telegram bot to Cloudflare Workers. Durable Objects are used for per-person DB and grammY is used to interact with the Telegram API'
+date: '2026-02-02'
+---
+
+import Comments from '../../components/React/Comments';
+
+# Background
+
+Last month I visited my friend for a week or so who mentioned I drink way less water and he showed me the reading on his water purifier. On average, I drank like 1L of water.
+
+I then started keeping track of how much water I drank, but then I used to miss a couple of days. So I thought, why not create an app to track this and also remind myself to drink water. 
+
+I present to you [Drinky](https://t.me/drinky_drinky_bot) which does just that. If you're interested, the GitHub repo is [here](https://github.com/flashblaze/drinky-bot). This blog post will go into why I went via the bot route, the tech stack I chose and the things I learned.
+
+# Has to be a new tech stack and low friction to use
+
+I didn't want to develop another web app in which I had to log in to. I thought of creating an Android app and to store the data locally but it would have been overkill and it would also be a hassle if I wanted to share it with somebody. I had already built a Telegram bot to notify when your Blender render is completed ([Render Notifier](https://superhivemarket.com/products/render-notifier)) and I knew the Telegram API was also pretty nice to work with. This would also allow me to share the bot with anyone. So there it was. Telegram bot.
+
+I was tired of using [D1](https://developers.cloudflare.com/d1/) due to its cold start time and drizzle not supporting its sessions API. Since I wanted to deploy everything to Cloudflare, I thought why not use [Durable Objects](https://developers.cloudflare.com/durable-objects/)? I had used it a while back to write a blog post, but not in a product as such and each user gets their own DB and since there won't be any external DB calls as such, the latency between data fetching, updating, etc would be close to 0ms. So I chose DO for my database.
+
+The last remaining part was which TS library to use to interact with Telegram API. I had read about [telegraf.js](https://github.com/telegraf/telegraf) somewhere so I checked it out, but it was not actively maintained. After searching for a bit, I went with [grammY](https://grammy.dev/) due to extensive documentation and it being actively maintained.
+
+# Some more new things
+
+Some more new libs which I have used are:
+
+- oxc - for linting and formatting
+- Vitest - for testing
+- AGENTS.md - for Gemini CLI
+- drizzle (beta version) - for ORM
+
+# Things I learned
+
+## Setting webhook URL
+
+Seemed pretty basic in hindsight, but no matter what, I was unable to listen to the messages sent to the bot. Added to the fact that I was using wrangler to develop locally (since I would be deploying to Cloudflare Workers), I was not sure what I was doing wrong. I eventually found out I had to set the webhook like so `https://api.telegram.org/bot/<BOT_ID>setWebhook?url=<WEBHOOK_URL>`. This would tell the bot to forward the messages to the webhook URL. To expose my localhost to the public internet, I used [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/).
+
+## Bot not responding to messages
+
+I was now able to see the messages, but I was not able to respond to them. I regrettably had to ask Cursor to fix this to which it spat out below code.
+
+```ts
+app.post("/webhook", async (c) => {
+    const update = await c.req.json();
+
+    const bot = await setupBot({
+        token: c.env.BOT_TOKEN,
+        env: c.env,
+        commands,
+        callbacks,
+    });
+
+    await bot.handleUpdate(update);
+
+    return c.json({ ok: true });
+});
+```
+
+`await bot.handleUpdate(update);` is used to pass the updates to the bot instance. Apparently, this is needed in a serverless env where everything is stateless. Adding this fixed the issue
+
+## Commands can be registered dynamically
+
+Initially I was under the impression that BotFather has to be used to update any commands which the bot can show to the user. But turns out you can set them via the API as well. 
+
+```ts
+app.post("/webhook", async (c) => {
+    const update = await c.req.json();
+
+    const bot = await setupBot({
+      token: c.env.BOT_TOKEN,
+      env: c.env,
+      commands,
+      callbacks,
+    });
+
+    await bot.api.setMyCommands(
+      commands.map((command) => ({
+        command: command.name,
+        description: command.description,
+      })),
+    );
+
+    // This is required for grammy to work in Cloudflare Workers. Also, this has to go after the commands are registered.
+    await bot.handleUpdate(update);
+
+    return c.json({ ok: true });
+});
+```
+
+As you can see, the `handleUpdate` method needs to be called after the commands are set. Otherwise, the data is not passed along.
+
+## Not everything has to be AI
+
+There came a point where I had to have timezone identification in the bot. My first thought was to ask user where they're located, send it to an LLM and then get the timezone in IANA format. Instead, I now ask the user for their location via Telegram's API, send their `lat` and `long` to `tz-lookup` and get the timezone. I'm glad I did not go via the AI route and I'm ashamed I did not think of the `tz-lookup` solution first.
+
+# Conclusion
+
+All in all, it was a lot of fun building this bot. I learned a lot and also solved my problem rather elegantly if I say so myself.
+
+
+<Comments client:only='react' />
