@@ -1,4 +1,6 @@
+packages: []
+
 onlyBuiltDependencies:
-  - es5-ext
-  - esbuild
-  - sharp
+- es5-ext
+- esbuild
+- sharp
