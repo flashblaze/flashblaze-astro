@@ -36,7 +36,7 @@ Some more new libs which I have used are:
 
 ## Setting webhook URL
 
-Seemed pretty basic in hindsight, but no matter what, I was unable to listen to the messages sent to the bot. Added to the fact that I was using wrangler to develop locally (since I would be deploying to Cloudflare Workers), I was not sure what I was doing wrong. I eventually found out I had to set the webhook like so `https://api.telegram.org/bot/<BOT_ID>setWebhook?url=<WEBHOOK_URL>`. This would tell the bot to forward the messages to the webhook URL. To expose my localhost to the public internet, I used [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/).
+Seemed pretty basic in hindsight, but no matter what, I was unable to listen to the messages sent to the bot. Added to the fact that I was using wrangler to develop locally (since I would be deploying to Cloudflare Workers), I was not sure what I was doing wrong. I eventually found out I had to set the webhook like so `https://api.telegram.org/bot<BOT_ID>/setWebhook?url=<WEBHOOK_URL>`. This would tell the bot to forward the messages to the webhook URL. To expose my localhost to the public internet, I used [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/).
 
 ## Bot not responding to messages
 
