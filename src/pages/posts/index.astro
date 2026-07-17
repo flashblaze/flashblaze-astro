@@ -26,8 +26,10 @@ const sortedPosts = posts.sort((a, b) => {
     sortedPosts.map(post => (
       <Post
         date={post.data.date}
-        href={`/posts/${post.slug}`}
-        fullReload={post.slug === 'integrating-sandpack' ? true : undefined}
+        href={`/posts/${post.data.slug}`}
+        fullReload={
+          post.data.slug === 'integrating-sandpack' ? true : undefined
+        }
       >
         {post.data.title}
       </Post>
