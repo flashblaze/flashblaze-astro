@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 
-import BlogPostListingSchema from '../../components/Astro/BlogPostListingSchema.astro';
 import Post from '../../components/Astro/Post.astro';
 import Main from '../../layouts/Main.astro';
 
@@ -23,7 +22,6 @@ const sortedPosts = posts.sort((a, b) => {
   ogUrl='https://flashblaze.xyz/posts'
   renderSchemaType='BlogPostListing'
 >
-  <BlogPostListingSchema />
   {
     sortedPosts.map(post => (
       <Post
