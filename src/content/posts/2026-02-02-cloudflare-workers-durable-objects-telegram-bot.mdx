@@ -11,7 +11,7 @@ import Comments from '../../components/React/Comments';
 
 Last month I visited my friend for a week or so who mentioned I drink way less water and he showed me the reading on his water purifier. On average, I drank like 1L of water.
 
-I then started keeping track of how much water I drank, but then I used to miss a couple of days. So I thought, why not create an app to track this and also remind myself to drink water.
+I then started keeping track of how much water I drank, but then I used to miss a couple of days. So I thought, why not create an app to track this and also remind myself to drink water. 
 
 I present to you [Drinky](https://t.me/drinky_drinky_bot) which does just that. If you're interested, the GitHub repo is [here](https://github.com/flashblaze/drinky-bot). This blog post will go into why I went via the bot route, the tech stack I chose and the things I learned.
 
@@ -36,26 +36,26 @@ Some more new libs which I have used are:
 
 ## Setting webhook URL
 
-Seemed pretty basic in hindsight, but no matter what, I was unable to listen to the messages sent to the bot. Added to the fact that I was using wrangler to develop locally (since I would be deploying to Cloudflare Workers), I was not sure what I was doing wrong. I eventually found out I had to set the webhook like so `https://api.telegram.org/bot<BOT_ID>/setWebhook?url=<WEBHOOK_URL>`. This would tell the bot to forward the messages to the webhook URL. To expose my localhost to the public internet, I used [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/).
+Seemed pretty basic in hindsight, but no matter what, I was unable to listen to the messages sent to the bot. Added to the fact that I was using wrangler to develop locally (since I would be deploying to Cloudflare Workers), I was not sure what I was doing wrong. I eventually found out I had to set the webhook like so `https://api.telegram.org/bot<BOT_ID>setWebhook?url=<WEBHOOK_URL>`. This would tell the bot to forward the messages to the webhook URL. To expose my localhost to the public internet, I used [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/).
 
 ## Bot not responding to messages
 
 I was now able to see the messages, but I was not able to respond to them. I regrettably had to ask Cursor to fix this to which it spat out below code.
 
 ```ts
-app.post('/webhook', async c => {
-  const update = await c.req.json();
+app.post("/webhook", async (c) => {
+    const update = await c.req.json();
 
-  const bot = await setupBot({
-    token: c.env.BOT_TOKEN,
-    env: c.env,
-    commands,
-    callbacks,
-  });
+    const bot = await setupBot({
+        token: c.env.BOT_TOKEN,
+        env: c.env,
+        commands,
+        callbacks,
+    });
 
-  await bot.handleUpdate(update);
+    await bot.handleUpdate(update);
 
-  return c.json({ ok: true });
+    return c.json({ ok: true });
 });
 ```
 
@@ -63,30 +63,30 @@ app.post('/webhook', async c => {
 
 ## Commands can be registered dynamically
 
-Initially I was under the impression that BotFather has to be used to update any commands which the bot can show to the user. But turns out you can set them via the API as well.
+Initially I was under the impression that BotFather has to be used to update any commands which the bot can show to the user. But turns out you can set them via the API as well. 
 
 ```ts
-app.post('/webhook', async c => {
-  const update = await c.req.json();
+app.post("/webhook", async (c) => {
+    const update = await c.req.json();
 
-  const bot = await setupBot({
-    token: c.env.BOT_TOKEN,
-    env: c.env,
-    commands,
-    callbacks,
-  });
+    const bot = await setupBot({
+      token: c.env.BOT_TOKEN,
+      env: c.env,
+      commands,
+      callbacks,
+    });
 
-  await bot.api.setMyCommands(
-    commands.map(command => ({
-      command: command.name,
-      description: command.description,
-    })),
-  );
+    await bot.api.setMyCommands(
+      commands.map((command) => ({
+        command: command.name,
+        description: command.description,
+      })),
+    );
 
-  // This is required for grammy to work in Cloudflare Workers. Also, this has to go after the commands are registered.
-  await bot.handleUpdate(update);
+    // This is required for grammy to work in Cloudflare Workers. Also, this has to go after the commands are registered.
+    await bot.handleUpdate(update);
 
-  return c.json({ ok: true });
+    return c.json({ ok: true });
 });
 ```
 
@@ -99,5 +99,6 @@ There came a point where I had to have timezone identification in the bot. My fi
 # Conclusion
 
 All in all, it was a lot of fun building this bot. I learned a lot and also solved my problem rather elegantly if I say so myself.
+
 
 <Comments client:only='react' />
