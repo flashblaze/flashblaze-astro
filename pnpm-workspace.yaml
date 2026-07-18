@@ -1,6 +1,13 @@
 packages: []
 
+allowBuilds:
+  es5-ext: true
+  esbuild: true
+
+minimumReleaseAgeExclude:
+  - astro@7.1.1
+
 onlyBuiltDependencies:
-- es5-ext
-- esbuild
-- sharp
+  - es5-ext
+  - esbuild
+  - sharp
