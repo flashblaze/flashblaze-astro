@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-const InViewParent = ({ children }) => {
+const InViewParent = ({ children }: { children: ReactNode }) => {
   const { ref, inView, entry } = useInView();
   const [showChildren, setShowChildren] = useState(false);
 
