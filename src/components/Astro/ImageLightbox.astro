@@ -1,0 +1,82 @@
+---
+// Click-to-zoom lightbox (GLightbox).
+// Targets any <img> marked with data-zoomable plus all prose images,
+// so MDX posts need no markup changes. Rendered once per page.
+import 'glightbox/dist/css/glightbox.min.css';
+---
+
+<script>
+  import GLightbox from 'glightbox';
+
+  const SELECTOR =
+    '[data-zoomable], .prose picture img, .prose > img, .prose p > img';
+
+  // Delegated from document so a single listener survives ClientRouter
+  // navigations and can never be bound twice.
+  declare global {
+    interface Window {
+      __imageLightboxBound?: boolean;
+    }
+  }
+
+  if (!window.__imageLightboxBound) {
+    window.__imageLightboxBound = true;
+
+    let lightbox: ReturnType<typeof GLightbox> | null = null;
+
+    document.addEventListener('click', event => {
+      const target = event.target as HTMLElement | null;
+      const img = target?.closest?.(SELECTOR) as HTMLImageElement | null;
+      if (!img) return;
+
+      const images = Array.from(
+        document.querySelectorAll<HTMLImageElement>(SELECTOR),
+      );
+      const index = images.indexOf(img);
+      if (index === -1) return;
+
+      // Built lazily so currentSrc reflects the source the browser actually loaded.
+      lightbox?.destroy();
+      lightbox = GLightbox({
+        elements: images.map(el => ({
+          href: el.currentSrc || el.src,
+          type: 'image',
+          alt: el.alt,
+        })) as unknown as [],
+        startAt: index,
+        touchNavigation: true,
+        loop: false,
+        zoomable: true,
+        openEffect: 'zoom',
+        closeEffect: 'zoom',
+      });
+      lightbox.open();
+    });
+
+    // Don't leave a modal hanging over the next page.
+    document.addEventListener('astro:before-swap', () => {
+      lightbox?.destroy();
+      lightbox = null;
+    });
+  }
+</script>
+
+<style is:global>
+  [data-zoomable],
+  .prose picture img,
+  .prose > img,
+  .prose p > img {
+    cursor: zoom-in;
+  }
+
+  /* GLightbox compensates the scrollbar it hides by injecting
+     body.gscrollbar-fixer { margin-right: <scrollbar-width>px }. This body
+     is itself the centered container (max-w-3xl mx-auto), so a fixed right
+     margin breaks its auto centering and shoves the whole page right. The
+     scrollbar gutter is already reserved by scrollbar-gutter: stable in
+     global.css, so the compensation is unnecessary — restore the auto margin.
+     body.gscrollbar-fixer (0,1,1) beats the injected .gscrollbar-fixer (0,1,0). */
+  body.gscrollbar-fixer {
+    margin-right: auto;
+  }
+</style>
