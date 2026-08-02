@@ -13,3 +13,9 @@
 
   --color-scheme: light dark;
 }
+
+/* Reserve the scrollbar gutter so locking body scroll (e.g. the image
+   lightbox) doesn't shift centered content sideways. */
+html {
+  scrollbar-gutter: stable;
+}

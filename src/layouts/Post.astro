@@ -8,6 +8,7 @@ export interface Props {
 }
 
 import Main from './Main.astro';
+import ImageLightbox from '../components/Astro/ImageLightbox.astro';
 
 let { title, date, description, renderSchemaType } = Astro.props;
 let { slug } = Astro.params;
@@ -32,6 +33,7 @@ const parsedDate = date.toUTCString().slice(0, 16);
   <article class='prose dark:prose-invert'>
     <slot />
   </article>
+  <ImageLightbox />
 </Main>
 
 <style is:inline>

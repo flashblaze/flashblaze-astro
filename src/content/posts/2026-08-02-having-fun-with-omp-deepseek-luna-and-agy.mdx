@@ -1,0 +1,47 @@
+---
+title: 'Having fun with oh my pi, DeepSeek-V4-Flash, GPT-5.6 Luna and Antigravity CLI'
+slug: 'having-fun-with-omp-deepseek-luna-and-agy'
+description: "A short blog post on how I'm working with oh my pi, DeepSeek-V4-Flash, GPT-5.6 Luna and Antigravity CLI to speed up my workflow and have fun at the same time."
+date: '2026-08-02'
+---
+
+<script async src="https://platform.twitter.com/widgets.js"></script>
+
+import { Tweet } from 'astro-embed';
+import Comments from '../../components/React/Comments';
+import ZoomablePicture from '../../components/Astro/ZoomablePicture.astro';
+
+import Image1 from '../../../public/post-assets/having-fun-with-omp-deepseek-luna-and-agy/1_vision.png';
+
+# Background
+
+I know these are a lot of buzz words, but nevertheless I wanted to share my setup so you can have some fun too! Recently, I've been working with [omp](https://omp.sh/) a "new" coding agent built on top of the very extensible and minimal coding agent [pi](https://pi.dev/) which also powers [OpenClaw](https://openclaw.ai/). Where pi is minimal, barebones and is left up to the user to customize, omp is batteries included and gives you the agentic experience you've come to know and love from [Codex](https://chatgpt.com/codex/) and [Claude Code](https://claude.com/product/claude-code) while adding even more features on top it.
+
+With the recent announcement that DeepSeek-V4-Flash is no longer in preview, goes head to head with other state-of-the-art models while being extremely cheap, I thought I would give it a try as well.
+<Tweet id="https://x.com/deepseek_ai/status/2083084415157022911" />
+
+
+# Adding "vision" to DeepSeek
+omp allows you to use your ChatGPT subscription along with a host of providers including search. So I added my DeepSeek API key, logged in via my OpenAI account to use my ChatGPT subscription and got it running. While Flash is extremely good at coding, it does not have multimodal capabilities. This means that if you give it an image and ask it to describe it, it will not be able to do so. It is strictly a text-in, text-out model. While Luna was already cheap, [**OpenAI slashed the pricing by 80%**](https://openai.com/index/advancing-the-price-performance-frontier-with-gpt-5-6/). This was a good chance to use Luna for vision, give its output to Flash and continue.
+
+This is pretty easy in omp. Just type in `/models`, choose the model you want to choose for vision and in the bottom nav bar, choose the **[vision]** option. That's it. Now any time you paste an image in the chat, Luna would pass the output to DeepSeek or any non-vision model
+
+<ZoomablePicture
+  src={Image1}
+  alt='Screenshot of a dark-themed terminal model selector in omp. The left sidebar lists AI providers, with **openai-codex** selected. The main panel shows six available models: **gpt-5.6-luna**, **gpt-5.6-sol**, **gpt-5.5**, **gpt-5.6-terra**, **gpt-5.4**, and **gpt-5.4-mini**, alongside context sizes, generation speeds, and per-million-token pricing. **gpt-5.6-luna** is highlighted as the current default model and is marked as supporting reasoning and vision, with a 272k context window and pricing of $0.20 input and $1.20 output per million tokens.'
+  formats={['avif', 'webp']}
+/>
+
+# Search, search and search
+
+This is where last piece of the puzzle fits in. We're using one of, if not, the cheapest SOTA and even gave it vision. But what about the newest information out there? For a refresher, when you use any of the 1st party harnesses like Codex or Claude Code and try to query for something recent or something they don't know, they perform a web search. This is not the case when you use your subscription in another harness (at least not that I'm aware of). The alternative then is to use one of the search providers like Exa, Perplexity, etc. I was not interested in that.
+
+[Antigravity CLI](https://antigravity.google/product/antigravity-cli) to the rescue. Since Google is excellent at search, I thought why not use Antigravity CLI or `agy` to search and use its output to drive whatever LLM I'm using? The reason you cannot simply log in via Google into omp is because it is against their ToS. So I asked DeepSeek-V4-Flash to create an omp extension to use the `agy` CLI whenever it wants to use web search. So right now, all the search providers are disabled and omp automatically reaches for `agy` for search.
+
+Here is the [GitHub Gist](https://gist.github.com/flashblaze/6b07cfeff124a33c952bb867855c1d5a) if you want to use it.
+
+# Conclusion
+
+So yeah. That's the setup I've been using since the past few days. DeepSeek-V4-Flash along with GPT-5.6 Luna Max for coding and vision and `agy` CLI only for search. I'm also trying out [herdr](https://herdr.dev/), but nothing exciting to report as of yet.
+
+<Comments client:only='react'/>
